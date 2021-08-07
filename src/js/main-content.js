@@ -4,7 +4,7 @@ import movieTpl from '../templates/cards.hbs'
 const newMovieService = new MovieService();
 
 function onSearch() {
-    return newMovieService.fetchMovies()
+    return newMovieService.fetchMovies();
 }
 
 onSearch()

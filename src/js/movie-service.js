@@ -10,8 +10,8 @@ export default class MovieService {
     fetchMovies() {
         return fetch(`${API_URL}/3/trending/movie/day?api_key=${API_KEY}`)
             .then(response => response.json())
-            .then(movies => {
-                return movies, console.log(movies)
+            .then(({results}) => {
+                return results, console.log(results)
             })
     }
 
