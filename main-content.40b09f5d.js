@@ -1,5 +1,5 @@
 parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcelRequire,u="function"==typeof require&&require;function f(t,n){if(!r[t]){if(!e[t]){var i="function"==typeof parcelRequire&&parcelRequire;if(!n&&i)return i(t,!0);if(o)return o(t,!0);if(u&&"string"==typeof t)return u(t);var c=new Error("Cannot find module '"+t+"'");throw c.code="MODULE_NOT_FOUND",c}p.resolve=function(r){return e[t][1][r]||r},p.cache={};var l=r[t]=new f.Module(t);e[t][0].call(l.exports,p,l,l.exports,this)}return r[t].exports;function p(e){return f(p.resolve(e))}}f.isParcelRequire=!0,f.Module=function(e){this.id=e,this.bundle=f,this.exports={}},f.modules=e,f.cache=r,f.parent=o,f.register=function(r,t){e[r]=[function(e,r){r.exports=t},{}]};for(var c=0;c<t.length;c++)try{f(t[c])}catch(e){i||(i=e)}if(t.length){var l=f(t[t.length-1]);"object"==typeof exports&&"undefined"!=typeof module?module.exports=l:"function"==typeof define&&define.amd?define(function(){return l}):n&&(this[n]=l)}if(parcelRequire=f,i)throw i;return f}({"SU6e":[function(require,module,exports) {
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;const e="0980f8d9bb3ef32f176d32e94a3ccac0",t="https://api.themoviedb.org";class r{constructor(){this.searchQuery=""}fetchMovies(){return fetch(`${t}/3/trending/movie/day?api_key=${e}`).then(e=>e.json()).then(({results:e})=>console.log(e))}get query(){return this.searchQuery}set query(e){this.searchQuery=e}}exports.default=r;
+const c="0980f8d9bb3ef32f176d32e94a3ccac0",e="https://api.themoviedb.org";
 },{}],"pAws":[function(require,module,exports) {
 var define;
 var global = arguments[3];
@@ -9,4 +9,4 @@ var e,t=arguments[3];!function(t,r){"object"==typeof exports&&"object"==typeof m
 },{"handlebars/dist/handlebars.runtime":"pAws"}],"a8jA":[function(require,module,exports) {
 "use strict";var e=t(require("./movie-service")),r=t(require("../templates/cards.hbs"));function t(e){return e&&e.__esModule?e:{default:e}}const u=new e.default;function s(){return u.fetchMovies()}s();
 },{"./movie-service":"SU6e","../templates/cards.hbs":"fpKt"}]},{},["a8jA"], null)
-//# sourceMappingURL=/team-project-JS/main-content.d547b1c1.js.map
+//# sourceMappingURL=/team-project-JS/main-content.40b09f5d.js.map
