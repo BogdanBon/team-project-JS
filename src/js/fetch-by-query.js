@@ -19,8 +19,8 @@ function onSearch(e) {
 
   refs.cardsContainer.innerHTML = '';
 
-  movieApiService.query = 'tiger';
-  // movieApiService.query = e.currentTarget.elements.searchQuery.value;
+  // movieApiService.query = 'tiger';
+  movieApiService.query = e.currentTarget.elements.searchQuery.value;
   fetchQuery();
 }
 
