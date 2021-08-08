@@ -1,7 +1,8 @@
 import MovieApiService from './movie-service';
 import genres from '../json/genres.json';
 // import cardTpl from '../templates/my-card.hbs';
-import fethByOneCard from './fetch-by-one-card';
+import { fethByOneCard } from './fetch-by-one-card';
+import noPosterImg from '../images/poster/no-poster.jpg';
 
 const URL = '/search/movie';
 const movieApiService = new MovieApiService(URL);
@@ -18,20 +19,31 @@ function onSearch(e) {
 
   refs.cardsContainer.innerHTML = '';
 
-  // movieApiService.query = 'tiger';
   movieApiService.query = e.currentTarget.elements.searchQuery.value;
   fetchQuery();
 }
 
 async function fetchQuery() {
-  const fetchedMovies = await movieApiService.fetchFilms();
-  console.log(fetchedMovies);
+  try {
+    const fetchedMovies = await movieApiService.fetchFilms();
 
-  const markup = makeMarkup(fetchedMovies);
+    checkPoster(fetchedMovies);
 
-  renderCards(markup);
+    const markup = makeMarkup(fetchedMovies);
 
-  addListenersToCards('.card__list > li');
+    renderCards(markup);
+
+    addListenersToCards('.card__list > li');
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// У фільми де немає постера - добавляє заготовку
+function checkPoster(fetchedMovies) {
+  fetchedMovies.results.forEach(e => {
+    e.poster_path = e.poster_path ? `https://image.tmdb.org/t/p/w500${e.poster_path}` : noPosterImg;
+  });
 }
 
 //Добавляет слушателей на все <li>
@@ -46,10 +58,11 @@ function addListenersToCards(selector) {
 function makeMarkup(fetchedMovies) {
   return fetchedMovies.results
     .map(el => {
-      // const genresMarkup = createGenresMarkup(el.genre_ids);
       const year = el.release_date.split('-')[0];
+
       el.genre_names = createGenresMarkup(el.genre_ids);
-      return `<li class="cards__item" data-id=${el.id}><img src="https://image.tmdb.org/t/p/w500${el.poster_path}" alt="" /><p>${el.title}</p><p>${el.genre_names}</p><p>${year}</p></li>`;
+
+      return `<li class="cards__item" data-id=${el.id}><img src="${el.poster_path}" alt="" /><p>${el.title}</p><p>${el.genre_names}</p><p>${year}</p></li>`;
     })
     .join('');
 
@@ -74,8 +87,8 @@ function createGenresMarkup(genresIdArr) {
   if (genresIdArr.length > 3) {
     const newGenresArr = genresNameArr.slice(0, 2);
     newGenresArr.push('Others');
-    return newGenresArr;
+    return newGenresArr.join(', ');
   } else {
-    return genresNameArr;
+    return genresNameArr.join(', ');
   }
 }
