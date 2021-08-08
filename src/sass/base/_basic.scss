@@ -1,0 +1,48 @@
+// Font-family in project
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+// Reset margin and padding in all elements in project
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+button {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+// Change all images to block-type in project
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+// Delete standard point in all lists
+ul {
+  list-style: none;
+}
+
+// Delete text-decoration in all links
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// Delete borders in buttons
+button {
+  border: none;
+}
+
+// Changes standart cursor
+button,
+a {
+  cursor: pointer;
+}
