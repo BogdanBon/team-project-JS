@@ -1,18 +1,19 @@
 // Basic container
 .container {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 
   @media screen and (max-width: 767px) {
-    min-width: 280px;
-    max-width: 280px;
+    width: 320px;
+    padding: 0 20px;
   }
 
   @media screen and (min-width: 768px) {
-    max-width: 618px;
+    width: 768px;
+    padding: 0 75px;
   }
 
   @media screen and (min-width: 1024px) {
-    max-width: 882px;
+    width: 1024px;
+    padding: 0 71px;
   }
 }
