@@ -73,4 +73,4 @@ var e,t=arguments[3];!function(t,r){"object"==typeof exports&&"object"==typeof m
 },{"./movie-service":"SU6e","../json/genres.json":"swNO","../templates/my-card.hbs":"qm7e"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("./js/fetch-by-query");
 },{"./sass/main.scss":"clu1","./js/fetch-by-query":"CUmF"}]},{},["Focm"], null)
-//# sourceMappingURL=/team-project-JS/src.e3ebf2cb.js.map
+//# sourceMappingURL=/team-project-JS/src.b454cb58.js.map
