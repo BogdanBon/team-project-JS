@@ -46,3 +46,7 @@ button,
 a {
   cursor: pointer;
 }
+
+.backdrop-is-open {
+  overflow: hidden;
+}

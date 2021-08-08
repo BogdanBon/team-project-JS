@@ -1,6 +1,7 @@
 import MovieApiService from './movie-service';
 import genres from '../json/genres.json';
-import cardTpl from '../templates/my-card.hbs';
+// import cardTpl from '../templates/my-card.hbs';
+import fethByOneCard from './fetch-by-one-card';
 
 const URL = '/search/movie';
 const movieApiService = new MovieApiService(URL);
@@ -8,8 +9,6 @@ const movieApiService = new MovieApiService(URL);
 const refs = {
   searchForm: document.querySelector('#search-form'),
   cardsContainer: document.querySelector('#cards-container'),
-  filmCardsList: document.querySelector('.card__list'),
-  filmCard: document.querySelector('.card__list'),
 };
 
 refs.searchForm.addEventListener('submit', onSearch);
@@ -27,8 +26,20 @@ function onSearch(e) {
 async function fetchQuery() {
   const fetchedMovies = await movieApiService.fetchFilms();
   console.log(fetchedMovies);
+
   const markup = makeMarkup(fetchedMovies);
+
   renderCards(markup);
+
+  addListenersToCards('.card__list > li');
+}
+
+//Добавляет слушателей на все <li>
+function addListenersToCards(selector) {
+  const cards = document.querySelectorAll(selector);
+  cards.forEach(el => {
+    el.addEventListener('click', fethByOneCard);
+  });
 }
 
 // Розмітка всіх карточок
@@ -38,7 +49,7 @@ function makeMarkup(fetchedMovies) {
       // const genresMarkup = createGenresMarkup(el.genre_ids);
       const year = el.release_date.split('-')[0];
       el.genre_names = createGenresMarkup(el.genre_ids);
-      return `<li><img src="https://image.tmdb.org/t/p/w500${el.poster_path}" alt="" /><p>${el.title}</p><p>${el.genre_names}</p><p>${year}</p></li>`;
+      return `<li class="cards__item" data-id=${el.id}><img src="https://image.tmdb.org/t/p/w500${el.poster_path}" alt="" /><p>${el.title}</p><p>${el.genre_names}</p><p>${year}</p></li>`;
     })
     .join('');
 
