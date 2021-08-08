@@ -1,0 +1,59 @@
+<div class='modal--close'></div>
+<div class='modal__content_left'>
+  <div class='modal__content_left-img'>
+    <img class='film-img' src='https://image.tmdb.org/t/p/w500{{poster_path}}' alt='...#img#' />
+  </div>
+</div>
+<div class='modal__content_right'>
+  <div class='modal__content_right-title'>
+    <h1 class='modal-title'>{{title}}</h1>
+  </div>
+  <div class='modal__content_right-info'>
+    <table class='film__info'>
+      <tbody>
+        <tr>
+          <td>
+            <h3 class='info-subtitle'>Vote / Votes</h3>
+          </td>
+          <td>
+            <span class='info-value'>{{vote_average}}</span>
+            <span class='info-value'>{{vote_count}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h3 class='info-subtitle'>Popularity</h3>
+          </td>
+          <td class='info-value'>{{popularity}}</td>
+        </tr>
+        <tr>
+          <td>
+            <h3 class='info-subtitle'>Original Title</h3>
+          </td>
+          <td class='info-value'>{{original_title}}</td>
+        </tr>
+        <tr>
+          <td>
+            <h3 class='info-subtitle'>Genre</h3>
+          </td>
+          <td>
+            <ul class='info-value'>
+              {{#each this.genres}}
+                <li>{{this.name}}</li>
+              {{/each}}
+
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class='modal__content_right-about'>
+    <h2 class='about-subtitle'>ABOUT</h2>
+    <p class='about-info'>{{overview}}</p>
+  </div>
+  <div class='modal__content_right-btns'>
+    <button class='modal-btns modal-btns--watched'>add to Watched</button>
+    <button class='modal-btns modal-btns--queue'>add to queue</button>
+  </div>
+</div>

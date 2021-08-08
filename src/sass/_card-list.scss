@@ -1,11 +1,12 @@
 .card__list {
-  list-style: none;
-  // 320
-
   & img {
     width: 280px;
     height: 400px;
     object-fit: cover;
+  }
+
+  & li {
+    cursor: pointer;
   }
 }
 
