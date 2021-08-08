@@ -1,1 +1,0 @@
-{"version":3,"sources":["sass/_main-content.scss"],"names":[],"mappings":"AAAA,MACE,WAAA,CACA,YAAA,CACA,iBAAA,CACA","file":"src.c61fc79b.css","sourceRoot":"../src","sourcesContent":[".card {\n  width: 100px;\n  height: 200px;\n  border-color: #333;\n  border-style: dotted;\n}\n"]}

@@ -67,4 +67,4 @@ module.exports=[{id:28,name:"Action"},{id:12,name:"Adventure"},{id:16,name:"Anim
 },{"./movie-service":"SU6e","../json/genres.json":"swNO"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("./js/fetch-by-query");
 },{"./sass/main.scss":"clu1","./js/fetch-by-query":"CUmF"}]},{},["Focm"], null)
-//# sourceMappingURL=/team-project-JS/src.24cdcad4.js.map
+//# sourceMappingURL=/team-project-JS/src.04eafaba.js.map
