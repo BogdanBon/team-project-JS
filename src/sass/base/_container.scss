@@ -4,14 +4,15 @@
   margin-right: auto;
 
   @media screen and (max-width: 767px) {
-    min-width: 320px;
-    max-width: 480px;
+    min-width: 280px;
+    max-width: 280px;
   }
 
   @media screen and (min-width: 768px) {
-    max-width: 768px;
+    max-width: 618px;
   }
-  @media screen and (min-width: 1280px) {
-    max-width: 1280px;
+
+  @media screen and (min-width: 1024px) {
+    max-width: 882px;
   }
 }
