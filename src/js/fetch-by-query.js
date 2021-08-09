@@ -75,12 +75,12 @@ export function findGenrNameById(id) {
   return genr.name;
 }
 
-// Розмітка жанрів: якщо жанрів 1-3, то повертає їх всі, а якщо жанрів 4-..., то повертає лише два і "others"
+// Розмітка жанрів: якщо жанрів 1-3, то повертає їх всі, а якщо жанрів 4-..., то повертає лише два і "Others", якщо немає жанрів, то повертає "Others"
 // Повертає рядок з жанрами
 function createGenresMarkup(genresIdArr) {
   const genresNameArr = genresIdArr.map(el => findGenrNameById(el));
 
-  if (genresIdArr.length > 3) {
+  if (genresIdArr.length > 3 || genresIdArr.length === 0) {
     const newGenresArr = genresNameArr.slice(0, 2);
     newGenresArr.push('Others');
     return newGenresArr.join(', ');
