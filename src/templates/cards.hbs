@@ -1,12 +1,13 @@
 {{#each this}}
-  <li class='card__item'>
+  <li class='card__item' data-id='{{id}}'>
     <article class='card'>
       <img class='card__img' src='{{poster_path}}' alt='{{title}}' />
       <div class='card__content'>
         <h2 class='card__name'>{{title}}</h2>
-        <p class='card__genres'>{{genre_names}}</p>
-        <p class='card__year'>{{year}}</p>
-        <p class='card__info'>{{vote_average}}</p>
+        <div class='card__description'>
+          <p class='card__genres'>{{genre_names}}</p>
+          <p class='card__year'>{{year}}</p>
+          <p class='card__rating'>{{vote_average}}</p></div>
       </div>
     </article>
   </li>
