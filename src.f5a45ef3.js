@@ -81,4 +81,4 @@ module.exports="/team-project-JS/no-poster.3d065138.jpg";
 },{"./movie-service":"SU6e","../json/genres.json":"swNO"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("./js/fetch-by-query"),require("./js/loading-popular-films-on-start-page"),require("./js/fetch-by-one-card");
 },{"./sass/main.scss":"clu1","./js/fetch-by-query":"CUmF","./js/loading-popular-films-on-start-page":"p3e7","./js/fetch-by-one-card":"DPQw"}]},{},["Focm"], null)
-//# sourceMappingURL=/team-project-JS/src.1a7e74a5.js.map
+//# sourceMappingURL=/team-project-JS/src.f5a45ef3.js.map
