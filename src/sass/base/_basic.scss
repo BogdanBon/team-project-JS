@@ -1,6 +1,6 @@
 // Font-family in project
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 // Reset margin and padding in all elements in project
@@ -16,6 +16,7 @@ button {
   margin-top: 0;
   margin-bottom: 0;
   padding: 0;
+  font-size: inherit;
 }
 
 // Change all images to block-type in project

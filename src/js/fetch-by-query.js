@@ -1,6 +1,6 @@
 import MovieApiService from './movie-service';
 import genres from '../json/genres.json';
-// import cardTpl from '../templates/my-card.hbs';
+import cardsTpl from '../templates/cards.hbs';
 import { fethByOneCard } from './fetch-by-one-card';
 import noPosterImg from '../images/poster/no-poster.jpg';
 
@@ -20,6 +20,7 @@ function onSearch(e) {
   refs.cardsContainer.innerHTML = '';
 
   movieApiService.query = e.currentTarget.elements.searchQuery.value;
+  movieApiService.query = 'tiger';
   fetchQuery();
 }
 
@@ -56,17 +57,12 @@ function addListenersToCards(selector) {
 
 // Розмітка всіх карточок
 function makeMarkup(fetchedMovies) {
-  return fetchedMovies.results
-    .map(el => {
-      const year = el.release_date.split('-')[0];
+  fetchedMovies.results.map(el => {
+    el.year = el.release_date.split('-')[0];
+    el.genre_names = createGenresMarkup(el.genre_ids);
+  });
 
-      el.genre_names = createGenresMarkup(el.genre_ids);
-
-      return `<li class="cards__item" data-id=${el.id}><img src="${el.poster_path}" alt="" /><p>${el.title}</p><p>${el.genre_names}</p><p>${year}</p></li>`;
-    })
-    .join('');
-
-  // return шаблон(fetchedMovies.result);
+  return cardsTpl(fetchedMovies.results);
 }
 
 // Рендер всіх карточок
