@@ -1,5 +1,6 @@
 import MovieApiService from './movie-service';
 import cardTpl from '../templates/modal-card.hbs';
+import noPosterImg from '../images/poster/no-poster.jpg';
 
 const refs = {
   modal: document.querySelector('.backdrop'),
@@ -8,22 +9,32 @@ const refs = {
 
 refs.modal.addEventListener('click', closeModal);
 
-export default async function fethByOneCard(el) {
-  const URL = `/movie/${el.currentTarget.dataset.id}`;
-  const movieApiService = new MovieApiService(URL);
+export async function fethByOneCard(el) {
+  try {
+    const URL = `/movie/${el.currentTarget.dataset.id}`;
+    const movieApiService = new MovieApiService(URL);
+    const fetchedMovie = await movieApiService.fetchFilms();
 
-  const fetchedMovie = await movieApiService.fetchFilms();
+    checkPoster(fetchedMovie);
 
-  console.log(fetchedMovie.title);
-  const markup = makeMarkup(fetchedMovie);
-  renderCard(markup);
+    const markup = makeMarkup(fetchedMovie);
 
-  const closeBtn = document.querySelector('.modal--close');
-  closeBtn.addEventListener('click', closeModal);
+    renderCard(markup);
+
+    const closeBtn = document.querySelector('.modal--close');
+    closeBtn.addEventListener('click', closeModal);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function checkPoster(fetchedMovie) {
+  fetchedMovie.poster_path = fetchedMovie.poster_path
+    ? `https://image.tmdb.org/t/p/w500${fetchedMovie.poster_path}`
+    : noPosterImg;
 }
 
 function makeMarkup(fetchedMovie) {
-  console.log(fetchedMovie);
   return cardTpl(fetchedMovie);
 }
 
