@@ -7,7 +7,7 @@ const refs = {
   modalContent: document.querySelector('.modal__content'),
 };
 
-refs.modal.addEventListener('click', closeModal);
+refs.modal.addEventListener('click', onModalClick);
 
 export async function fethByOneCard(el) {
   try {
@@ -21,12 +21,15 @@ export async function fethByOneCard(el) {
 
     renderCard(markup);
 
-    const closeBtn = document.querySelector('.modal--close');
-    closeBtn.addEventListener('click', closeModal);
-
     window.addEventListener('keydown', onKeyDown);
   } catch (error) {
     console.log(error);
+  }
+}
+
+function onModalClick(e) {
+  if (e.target.classList.contains('backdrop') || e.target.classList.contains('modal--close')) {
+    closeModal();
   }
 }
 
