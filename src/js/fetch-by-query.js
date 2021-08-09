@@ -20,7 +20,6 @@ function onSearch(e) {
   refs.cardsContainer.innerHTML = '';
 
   movieApiService.query = e.currentTarget.elements.searchQuery.value;
-  movieApiService.query = 'tiger';
   fetchQuery();
 }
 
@@ -34,7 +33,7 @@ async function fetchQuery() {
 
     renderCards(markup);
 
-    addListenersToCards('.card__list > li');
+    addListenersToCards('.card__item');
   } catch (error) {
     console.log(error);
   }
@@ -77,6 +76,7 @@ export function findGenrNameById(id) {
 }
 
 // Розмітка жанрів: якщо жанрів 1-3, то повертає їх всі, а якщо жанрів 4-..., то повертає лише два і "others"
+// Повертає рядок з жанрами
 function createGenresMarkup(genresIdArr) {
   const genresNameArr = genresIdArr.map(el => findGenrNameById(el));
 
