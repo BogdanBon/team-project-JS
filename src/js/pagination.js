@@ -1,11 +1,9 @@
-import '../sass/main.css';
-import '../js/main-content';
-import '../js/movie-service';
-import MovieApiService from '../js/movie-service';
+
+import MovieApiService from './movie-service';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import '../partials/main-content.html';
-import card from '../templates/cards.hbs';
+
 import './fetch-by-query';
 
 const refs = {
@@ -60,7 +58,3 @@ pagination.on('afterMove', (event) => {
     } )
 });
 
- function renderCard(data) {
-    refs.cardList.insertAdjacentHTML('beforeend', card(data));
-}
-    
