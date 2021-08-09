@@ -1,0 +1,255 @@
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+input:active,
+:hover,
+:focus {
+  outline: 0;
+  outline-offset: 0;
+}
+
+.header {
+  height: 230px;
+
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+    url('../images/bg-image/mobile-fon@1x.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  @media screen and (min-width: $tablet) {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url('../images/bg-image/tablet-fon@1x.jpg');
+  }
+
+  @media screen and (min-width: $desktop) {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url('../images/bg-image/desctop-fon@1x.jpg');
+  }
+}
+
+.container {
+  padding: 0px 20px;
+  margin: 0px auto;
+  width: 320px;
+
+  @media screen and (min-width: $tablet) {
+    width: 768px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    width: 1024px;
+  }
+}
+
+.site-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 46px;
+  padding-bottom: 43px;
+
+  @media screen and (min-width: $tablet) {
+    padding-left: 51px;
+    padding-bottom: 37px;
+  }
+}
+
+.site-nav__icon-film {
+  width: 24px;
+  height: 24px;
+  color: #818181;
+
+  &:hover,
+  &:focus {
+    color: $line-color;
+  }
+}
+
+.site-nav__name {
+  display: none;
+
+  @media screen and (min-width: $tablet) {
+    display: inline-block;
+    margin-left: 10px;
+    color: $font-color;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.17;
+  }
+}
+
+.site-nav__list {
+  display: flex;
+  margin: 0px;
+}
+
+.site-nav__item {
+  position: relative;
+  font-family: $primary-font-family;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.17;
+  color: $font-color;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+
+  &:first-child {
+    margin-right: 39px;
+  }
+
+  &:last-child {
+    @media screen and (min-width: $tablet) {
+      margin-right: 50px;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    color: $line-color;
+  }
+}
+
+.site-nav__item--current {
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: $line-color;
+    opacity: 0;
+  }
+
+  &::after {
+    opacity: 1;
+  }
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+}
+
+.search-form {
+  position: relative;
+}
+
+::-webkit-input-placeholder {
+  color: $font-color;
+}
+
+.search-form__input {
+  padding-bottom: 4px;
+  width: 280px;
+  height: 20px;
+  background-color: inherit;
+  border: none;
+  border-bottom: 0.5px solid $font-color;
+  color: $font-color;
+  cursor: text;
+
+  font-family: $primary-font-family;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.14;
+
+  @media screen and (min-width: $tablet) {
+    width: 336px;
+  }
+}
+
+.btn {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  padding: 0px;
+  background-color: inherit;
+  border: none;
+}
+
+.site-nav__icon-search {
+  width: 12px;
+  height: 12px;
+}
+
+.notification {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+  margin-right: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.14;
+  color: $notification-color;
+  opacity: 0;
+
+  @media screen and (min-width: $tablet) {
+    margin-right: 0px;
+  }
+}
+
+.overlay {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  top: 121px;
+  opacity: 0;
+
+  @media screen and (min-width: $tablet) {
+    left: 32%;
+  }
+
+  @media screen and (min-width: $desktop) {
+    left: 40%;
+  }
+}
+
+.overlay__btn {
+  width: 129px;
+  height: 44px;
+  text-transform: uppercase;
+  background-color: inherit;
+  color: $font-color;
+  border: 1px solid $font-color;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    background-color: $btn-color;
+    border-color: $btn-color;
+  }
+
+  &:first-child {
+    margin-right: 20px;
+
+    @media screen and (min-width: $tablet) {
+      margin-right: 15px;
+    }
+  }
+}
+
+.is-visible {
+  opacity: 1;
+}
+
+.transform {
+  transform: translateX(-500%);
+}
