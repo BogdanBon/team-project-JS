@@ -9,37 +9,55 @@
     <h1 class='modal-title'>{{title}}</h1>
   </div>
   <div class='modal__content_right-info'>
+    {{!-- <div class="film__info flex">
+      <div class="film__info--left">
+        <h3 class='info-subtitle'>Vote / Votes</h3>
+      </div>
+      <div class="film__info--right">
+        <span class='info-value'>{{vote_average}}</span>
+        <span class='info-value'>/</span>
+        <span class='info-value'>{{vote_count}}</span>
+      </div>
+    </div> --}}
     <table class='film__info'>
-      <tbody>
-        <tr>
-          <td>
+      <tbody class='table'>
+        
+        <tr class='flex'>
+          <td class='film__info--left'>
             <h3 class='info-subtitle'>Vote / Votes</h3>
           </td>
-          <td>
+          <td class='film__info--right'>
             <span class='info-value'>{{vote_average}}</span>
+            <span class='info-value'>/</span>
             <span class='info-value'>{{vote_count}}</span>
           </td>
         </tr>
-        <tr>
-          <td>
+
+        <tr class='flex'>
+          <td class='film__info--left'>
             <h3 class='info-subtitle'>Popularity</h3>
           </td>
-          <td class='info-value'>{{popularity}}</td>
+          <td class='film__info--right'>
+            <span class='info-value'>{{popularity}}</span></td>
         </tr>
-        <tr>
-          <td>
+
+        <tr class='flex'>
+          <td class='film__info--left'>
             <h3 class='info-subtitle'>Original Title</h3>
           </td>
-          <td class='info-value'>{{original_title}}</td>
+          <td class='film__info--right'>
+            <span class='info-value info-value--uppercase'>{{original_title}}</span></td>
         </tr>
-        <tr>
-          <td>
+
+        <tr class='flex'>
+          <td class='film__info--left'>
             <h3 class='info-subtitle'>Genre</h3>
           </td>
-          <td>
-            <ul class='info-value'>
+
+          <td class = 'film__info--right'>
+            <ul class='info-value info-value--genres '>
               {{#each this.genres}}
-                <li>{{this.name}}</li>
+                <li class='info-value--list'>{{this.name}}</li>
               {{/each}}
 
             </ul>
