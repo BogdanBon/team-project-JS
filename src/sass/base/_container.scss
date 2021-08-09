@@ -3,17 +3,16 @@
   margin: 0 auto;
 
   @media screen and (max-width: 767px) {
-    width: 320px;
-    padding: 0 20px;
+    min-width: 280px;
+    max-width: 280px;
+    padding: 0;
   }
 
   @media screen and (min-width: 768px) {
-    width: 768px;
-    padding: 0 75px;
+    max-width: 618px;
   }
 
   @media screen and (min-width: 1024px) {
-    width: 1024px;
-    padding: 0 71px;
+    width: 882px;
   }
 }
