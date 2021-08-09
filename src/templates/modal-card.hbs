@@ -21,7 +21,7 @@
     </div> --}}
     <table class='film__info'>
       <tbody class='table'>
-        
+
         <tr class='flex'>
           <td class='film__info--left'>
             <h3 class='info-subtitle'>Vote / Votes</h3>
@@ -54,8 +54,8 @@
             <h3 class='info-subtitle'>Genre</h3>
           </td>
 
-          <td class = 'film__info--right'>
-            <ul class='info-value info-value--genres '>
+          <td class='film__info--right'>
+            <ul class='info-value info-value--genres'>
               {{#each this.genres}}
                 <li class='info-value--list'>{{this.name}}</li>
               {{/each}}
@@ -71,7 +71,11 @@
     <p class='about-info'>{{overview}}</p>
   </div>
   <div class='modal__content_right-btns'>
-    <button class='modal-btns modal-btns--watched'>add to Watched</button>
-    <button class='modal-btns modal-btns--queue'>add to queue</button>
+    <button type='button' class='modal-btns modal-btns--watched'>
+      add to Watched
+    </button>
+    <button type='button' class='modal-btns modal-btns--queue'>
+      add to queue
+    </button>
   </div>
 </div>
