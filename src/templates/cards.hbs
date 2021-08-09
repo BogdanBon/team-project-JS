@@ -1,17 +1,13 @@
 {{#each this}}
-
-<li class="card-item">
-    <article class="card">
-        <img 
-        src='https://image.tmdb.org/t/p/w500{{poster_path}}' 
-     alt='{{name}}'   
-    />
-    <div class="card_content">
-        <h2 class="card_name">{{title}}</h2>
-        <p class='card_info'> {{#each this.genres}} </p>
-        <p class="card_year">{{year}}</p>
-        <p class='card_info'>{{vote_average}}</p>
-    </div>
-</article>
-</li>
+  <li class='card__item'>
+    <article class='card'>
+      <img class='card__img' src='{{poster_path}}' alt='{{title}}' />
+      <div class='card__content'>
+        <h2 class='card__name'>{{title}}</h2>
+        <p class='card__genres'>{{genre_names}}</p>
+        <p class='card__year'>{{year}}</p>
+        <p class='card__info'>{{vote_average}}</p>
+      </div>
+    </article>
+  </li>
 {{/each}}
