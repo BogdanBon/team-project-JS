@@ -23,8 +23,17 @@ export async function fethByOneCard(el) {
 
     const closeBtn = document.querySelector('.modal--close');
     closeBtn.addEventListener('click', closeModal);
+
+    window.addEventListener('keydown', onKeyDown);
   } catch (error) {
     console.log(error);
+  }
+}
+
+function onKeyDown(e) {
+  if (e.code === 'Escape') {
+    closeModal();
+    return;
   }
 }
 
@@ -46,6 +55,7 @@ function renderCard(markup) {
 }
 
 function closeModal() {
+  window.removeEventListener('keydown', onKeyDown);
   document.body.classList.remove('backdrop-is-open');
   refs.modal.classList.add('visually-hidden');
 }
