@@ -94,6 +94,29 @@ ul {
   line-height: 1.3;
 }
 
+.info-value--vote {
+  text-align: center;
+  border-radius: 5px;
+  width: 36px;
+  height: 16px;
+}
+
+.vote-orange {
+  color: #ffffff;
+  background: #ff6b01;
+}
+
+.vote-grey {
+  color: #000000;
+  background: #f7f7f7;
+}
+
+.info-value--vote-or {
+  color: #8c8c8c;
+  margin-right: 3px;
+  margin-left: 3px;
+}
+
 .info-value--uppercase {
   text-transform: uppercase;
 }
@@ -121,9 +144,15 @@ ul {
   line-height: 1.6;
 }
 
-.modal-btns {
+.modal__content_right-btns {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-btns {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
   text-align: center;
 
   font-weight: 500;
@@ -133,6 +162,25 @@ ul {
 
   border-radius: 5px;
   height: 44px;
+  width: 112px;
 
+  padding: 7px;
   margin: 2px;
+
+  cursor: pointer;
 }
+
+.modal-btns--watched {
+  background: #ff6b01;
+  color: #ffffff;
+}
+
+.modal-btns--queue {
+  border: 1px solid #000000;
+  // box-sizing: border-box;
+  color: #000000;
+}
+
+// LAPTOP
+
+// DESCTOP

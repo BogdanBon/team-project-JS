@@ -20,7 +20,40 @@ export async function fethByOneCard(el) {
     const markup = makeMarkup(fetchedMovie);
 
     renderCard(markup);
+    // ---------------------------------------------------
 
+    const addToWatchedBtn = document.querySelector('.modal-btns--watched');
+    const addToQueueBtns = document.querySelector('.modal-btns--queue');
+
+    addToWatchedBtn.addEventListener('click', onAddToWatchedBtn);
+    addToQueueBtns.addEventListener('click', onAddToQueueBtns);
+    const films = [];
+    // addToWatchedBtn.watched = fetchedMovie;
+    function onAddToWatchedBtn(e) {
+      // console.dir(e.target.watched);
+      films.push(fetchedMovie);
+
+      localStorage.setItem('watched', JSON.stringify(films));
+      
+      const film = localStorage.getItem('watched');
+      const parseFilm = JSON.parse(film);
+      // console.log(films);
+      return addToArr(parseFilm);
+    }
+
+    function addToArr(parseFilm) {
+      films.push(parseFilm);
+      localStorage.setItem('watched', JSON.stringify(films));
+      return films;
+    }
+    // console.log(films);
+    
+    function onAddToQueueBtns(e) {
+      console.log('queue');
+      localStorage.setItem('queue', fetchedMovie);
+    }
+
+    // ---------------------------------------------
     window.addEventListener('keydown', onKeyDown);
   } catch (error) {
     console.log(error);
