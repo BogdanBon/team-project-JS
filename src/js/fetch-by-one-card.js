@@ -37,7 +37,7 @@ export async function fethByOneCard(el) {
       
       const film = localStorage.getItem('watched');
       const parseFilm = JSON.parse(film);
-      console.log(films);
+      // console.log(films);
       return addToArr(parseFilm);
     }
 
@@ -46,7 +46,7 @@ export async function fethByOneCard(el) {
       localStorage.setItem('watched', JSON.stringify(films));
       return films;
     }
-    console.log(films);
+    // console.log(films);
     
     function onAddToQueueBtns(e) {
       console.log('queue');
