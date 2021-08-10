@@ -1,0 +1,30 @@
+.footer {
+  background-color: #f7f7f7;
+
+  height: 77px;
+
+  display: flex;
+  align-items: center;
+}
+
+.footer__text {
+  display: flex;
+  justify-content: center;
+
+  font-weight: 400;
+  font-size: 16px;
+
+  color: #545454;
+}
+
+.footer__text > svg {
+  margin: 2px 5px 0px 5px;
+}
+
+.footer__container {
+  @media screen and (max-width: 767px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
