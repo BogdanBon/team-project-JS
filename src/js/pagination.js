@@ -7,15 +7,16 @@ import '../partials/main-content.html';
 import './fetch-by-query';
 
 const refs = {
-    cardList: document.querySelector('.card-list'),
+    cardList: document.querySelector('.card__list'),
 };
 
 const movieApiService = new MovieApiService();
 
 const options = {
-    total_pages: 0,
+    totalItems: 500,
+    // total_pages: 100,
     itemsPerPage: 20,
-    visiblePages: 5,
+    visiblePages: 10,
     page: 1,
     centerAlign: true,
     firstItemClassName: 'tui-first-child',
@@ -37,24 +38,31 @@ const options = {
             '</a>'
     }
 };
+const options1 = {
+    totalItems: 500,
+    itemsPerPage: 10,
+    visiblePages: 5
+}
 
 const pagination = new Pagination('#tui-pagination-container', options);
+console.log(pagination);
 
 const page = pagination.getCurrentPage();
-
-movieApiService.fetchQuery(page).then(response => {
-    console.log(response);
+console.log(movieApiService)
+movieApiService.page=page
+movieApiService.fetchFilms().then(response => {
+    console.log(refs);
     pagination.reset(response.total_pages);
-     changeGallery(response.results);
+    //  changeGallery(response.results);
  });
 
 pagination.on('afterMove', (event) => {
     const activePage = event.page;
 
     refs.cardList.innerHTML = '';
-
-    movieApiService.fetchFilm(activePage).then(response => {
-        renderCard(response.results);
+    movieApiService.page=activePage
+    movieApiService.fetchFilms().then(response => {
+        // renderCard(response.results);
     } )
 });
 
