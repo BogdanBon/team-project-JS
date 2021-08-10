@@ -27,9 +27,9 @@
             <h3 class='info-subtitle'>Vote / Votes</h3>
           </td>
           <td class='film__info--right'>
-            <span class='info-value'>{{vote_average}}</span>
-            <span class='info-value'>/</span>
-            <span class='info-value'>{{vote_count}}</span>
+            <span class='info-value info-value--vote vote-orange'>{{vote_average}}</span>
+            <span class='info-value info-value--vote-or'> / </span>
+            <span class='info-value info-value--vote vote-grey'>{{vote_count}}</span>
           </td>
         </tr>
 
@@ -71,7 +71,7 @@
     <p class='about-info'>{{overview}}</p>
   </div>
   <div class='modal__content_right-btns'>
-    <button type='button' class='modal-btns modal-btns--watched'>
+    <button type='button' class='modal-btns modal-btns--watched' id ='watchedjs'>
       add to Watched
     </button>
     <button type='button' class='modal-btns modal-btns--queue'>
