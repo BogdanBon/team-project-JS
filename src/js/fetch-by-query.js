@@ -20,10 +20,10 @@ function onSearch(e) {
   refs.cardsContainer.innerHTML = '';
 
   movieApiService.query = e.currentTarget.elements.searchQuery.value;
-  fetchQuery();
+  fetchQuery(movieApiService);
 }
 
-async function fetchQuery() {
+export async function fetchQuery(movieApiService) {
   try {
     const fetchedMovies = await movieApiService.fetchFilms();
 
@@ -40,14 +40,14 @@ async function fetchQuery() {
 }
 
 // У фільми де немає постера - добавляє заготовку
-function checkPoster(fetchedMovies) {
+export function checkPoster(fetchedMovies) {
   fetchedMovies.results.forEach(e => {
     e.poster_path = e.poster_path ? `https://image.tmdb.org/t/p/w500${e.poster_path}` : noPosterImg;
   });
 }
 
 //Добавляет слушателей на все <li>
-function addListenersToCards(selector) {
+export function addListenersToCards(selector) {
   const cards = document.querySelectorAll(selector);
   cards.forEach(el => {
     el.addEventListener('click', fethByOneCard);
@@ -55,9 +55,16 @@ function addListenersToCards(selector) {
 }
 
 // Розмітка всіх карточок
-function makeMarkup(fetchedMovies) {
+export function makeMarkup(fetchedMovies) {
+  const currentDate = new Date();
+
   fetchedMovies.results.map(el => {
-    el.year = el.release_date.split('-')[0];
+    console.log(el.title);
+    if (!el.title) {
+      el.title = el.name;
+    }
+
+    el.year = el.release_date ? el.release_date.split('-')[0] : currentDate.getFullYear();
     el.genre_names = createGenresMarkup(el.genre_ids);
   });
 
@@ -65,20 +72,30 @@ function makeMarkup(fetchedMovies) {
 }
 
 // Рендер всіх карточок
-function renderCards(markup) {
+export function renderCards(markup) {
   refs.cardsContainer.insertAdjacentHTML('beforeend', markup);
 }
 
 // Пошук жанру по id
 export function findGenrNameById(id) {
   const genr = genres.find(el => el.id === id);
+  if (!genr) {
+    return;
+  }
   return genr.name;
 }
 
 // Розмітка жанрів: якщо жанрів 1-3, то повертає їх всі, а якщо жанрів 4-..., то повертає лише два і "Others", якщо немає жанрів, то повертає "Others"
 // Повертає рядок з жанрами
-function createGenresMarkup(genresIdArr) {
-  const genresNameArr = genresIdArr.map(el => findGenrNameById(el));
+export function createGenresMarkup(genresIdArr) {
+  const genresNameArr = [];
+
+  genresIdArr.forEach(i => {
+    const name = findGenrNameById(i);
+    if (name) {
+      genresNameArr.push(name);
+    }
+  });
 
   if (genresIdArr.length > 3 || genresIdArr.length === 0) {
     const newGenresArr = genresNameArr.slice(0, 2);
