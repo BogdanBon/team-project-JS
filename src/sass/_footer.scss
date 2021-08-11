@@ -1,10 +1,11 @@
 .footer {
-  background-color: #f7f7f7;
-
-  height: 77px;
-
   display: flex;
   align-items: center;
+
+  height: 77px;
+  margin-top: 60px;
+
+  background-color: #f7f7f7;
 }
 
 .footer__text {
@@ -19,6 +20,10 @@
 
 .footer__text > svg {
   margin: 2px 5px 0px 5px;
+}
+.footer__text > a {
+  margin-left: 4px;
+  text-decoration: underline;
 }
 
 .footer__container {
