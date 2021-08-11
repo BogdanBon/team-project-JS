@@ -21,6 +21,7 @@ input:active,
 
 .header {
   height: 230px;
+  margin-bottom: 60px;
 
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
     url('../images/bg-image/mobile-fon@1x.jpg');
@@ -39,19 +40,19 @@ input:active,
   }
 }
 
-.container {
-  padding: 0px 20px;
-  margin: 0px auto;
-  width: 320px;
+// .container {
+//   padding: 0px 20px;
+//   margin: 0px auto;
+//   width: 320px;
 
-  @media screen and (min-width: $tablet) {
-    width: 768px;
-  }
+//   @media screen and (min-width: $tablet) {
+//     width: 768px;
+//   }
 
-  @media screen and (min-width: $desktop) {
-    width: 1024px;
-  }
-}
+//   @media screen and (min-width: $desktop) {
+//     width: 1024px;
+//   }
+// }
 
 .site-nav {
   display: flex;
