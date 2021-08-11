@@ -3,8 +3,9 @@ import MovieApiService from './movie-service';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import '../partials/main-content.html';
-
-import './fetch-by-query';
+import card from '../templates/cards'
+// import './fetch-by-query';
+import { renderCards, makeMarkup } from './fetch-by-query';
 
 const refs = {
     cardList: document.querySelector('.card__list'),
@@ -14,9 +15,9 @@ const movieApiService = new MovieApiService();
 
 const options = {
     totalItems: 500,
-    // total_pages: 100,
+    total_pages: 0,
     itemsPerPage: 20,
-    visiblePages: 10,
+    visiblePages: 5,
     page: 1,
     centerAlign: true,
     firstItemClassName: 'tui-first-child',
@@ -38,11 +39,7 @@ const options = {
             '</a>'
     }
 };
-const options1 = {
-    totalItems: 500,
-    itemsPerPage: 10,
-    visiblePages: 5
-}
+
 
 const pagination = new Pagination('#tui-pagination-container', options);
 console.log(pagination);
@@ -51,9 +48,10 @@ const page = pagination.getCurrentPage();
 console.log(movieApiService)
 movieApiService.page=page
 movieApiService.fetchFilms().then(response => {
-    console.log(refs);
+    console.log(response);
     pagination.reset(response.total_pages);
-    //  changeGallery(response.results);
+    // renderCard();
+    // renderCards(makeMarkup(response))
  });
 
 pagination.on('afterMove', (event) => {
@@ -62,7 +60,19 @@ pagination.on('afterMove', (event) => {
     refs.cardList.innerHTML = '';
     movieApiService.page=activePage
     movieApiService.fetchFilms().then(response => {
-        // renderCard(response.results);
+    //  renderCards(response.results);   
+    // renderCard();
+        // renderCards(makeMarkup(response));
+        console.log(response);
     } )
 });
 
+// function renderCard(data) {
+//   refs.cardList.insertAdjacentHTML('beforeend', card(data));
+// }
+
+// const options1 = {
+//     totalItems: 500,
+//     itemsPerPage: 10,
+//     visiblePages: 5,
+// }

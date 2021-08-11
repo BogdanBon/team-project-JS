@@ -20,7 +20,7 @@ function onSearch(e) {
   refs.cardsContainer.innerHTML = '';
 
   movieApiService.query = e.currentTarget.elements.searchQuery.value;
-  fetchQuery(movieApiService);
+  //   fetchQuery(movieApiService);
 }
 
 export async function fetchQuery(movieApiService) {
