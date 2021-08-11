@@ -1,17 +1,15 @@
-console.log('hello');
+function ifWatched() {
+    if (! localStorage.getItem('watched')) {
+        localStorage.setItem('watched', JSON.stringify([]));
+    }
+    } 
 
-// const titlemodal = document.querySelector('.modal-title');
-// console.log(titlemodal);
+ifWatched();
 
-// const addToWatchedBtn = document.querySelector('.modal-btns--watched');
-// console.log(addToWatchedBtn);
+function ifQueue() {
+    if (! localStorage.getItem('queue')) {
+        localStorage.setItem('queue', JSON.stringify([]));
+    }
+}
 
-// const addToWatchedBtn = document.getElementById('#watchedjs');
-// console.log(addToWatchedBtn);
-
-// addToWatchedBtn.addEventListener('click', onaAddToWatchedBtn);
-
-// function onaAddToWatchedBtn(evt) {
-    
-//     console.log('klic');
-// } 
+ifQueue();
