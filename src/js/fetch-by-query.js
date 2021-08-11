@@ -1,10 +1,10 @@
 import Notiflix from 'notiflix';
+import vars from './variables';
 import MovieApiService from './movie-service';
 import genres from '../json/genres.json';
 import cardsTpl from '../templates/cards.hbs';
 import { fethByOneCard } from './fetch-by-one-card';
 import noPosterImg from '../images/poster/no-poster.jpg';
-import vars from './variables';
 
 const URL = '/search/movie';
 const movieApiService = new MovieApiService(URL);
