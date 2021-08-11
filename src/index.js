@@ -5,3 +5,4 @@ import './js/fetch-by-one-card';
 import './js/header';
 import './js/add-to-local-storage';
 import './js/variables';
+import './js/my-library';
