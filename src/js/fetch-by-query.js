@@ -1,8 +1,10 @@
+import Notiflix from 'notiflix';
 import MovieApiService from './movie-service';
 import genres from '../json/genres.json';
 import cardsTpl from '../templates/cards.hbs';
 import { fethByOneCard } from './fetch-by-one-card';
 import noPosterImg from '../images/poster/no-poster.jpg';
+import vars from './variables';
 
 const URL = '/search/movie';
 const movieApiService = new MovieApiService(URL);
@@ -11,6 +13,10 @@ const refs = {
   searchForm: document.querySelector('#search-form'),
   cardsContainer: document.querySelector('#cards-container'),
 };
+
+Notiflix.Loading.init({
+  svgColor: `${vars.accentColor}`,
+});
 
 refs.searchForm.addEventListener('submit', onSearch);
 
@@ -25,7 +31,11 @@ function onSearch(e) {
 
 export async function fetchQuery(movieApiService) {
   try {
+    showLoading();
+
     const fetchedMovies = await movieApiService.fetchFilms();
+
+    hideLoading();
 
     checkPoster(fetchedMovies);
 
@@ -88,6 +98,9 @@ export function findGenrNameById(id) {
 // Розмітка жанрів: якщо жанрів 1-3, то повертає їх всі, а якщо жанрів 4-..., то повертає лише два і "Others", якщо немає жанрів, то повертає "Others"
 // Повертає рядок з жанрами
 export function createGenresMarkup(genresIdArr) {
+  if (!genresIdArr) {
+    return;
+  }
   const genresNameArr = [];
 
   genresIdArr.forEach(i => {
@@ -104,4 +117,12 @@ export function createGenresMarkup(genresIdArr) {
   } else {
     return genresNameArr.join(', ');
   }
+}
+
+function showLoading() {
+  Notiflix.Loading.arrows('Loading...');
+}
+
+function hideLoading() {
+  Notiflix.Loading.remove('Loading...');
 }
