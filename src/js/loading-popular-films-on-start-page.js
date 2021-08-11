@@ -22,7 +22,8 @@ function paginationInit(fetchFilms) {
     const options = {
       totalItems: fetchFilms.total_pages,
       total_pages: 0,
-      itemsPerPage: fetchFilms.results.length,
+      itemsPerPage: 20,
+      // itemsPerPage: fetchFilms.results.length,
       visiblePages: 5,
       page: 1,
       centerAlign: true,
