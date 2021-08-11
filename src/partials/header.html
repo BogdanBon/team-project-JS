@@ -3,8 +3,8 @@
     <nav class="site-nav">
       <a href="#" class="site-nav__logo">
         <svg class="site-nav__icon-film">
-          <use href="./images/svg/sprite.svg#icon-film"></use>
-        </svg><span class="site-nav__name">Filmoteka</span>
+          <use href="./images/svg/sprite.svg#icon-film"></use></svg
+        ><span class="site-nav__name">Filmoteka</span>
       </a>
       <ul class="site-nav__list">
         <li class="site-nav__item site-nav__item--current home-js">Home</li>
@@ -16,17 +16,18 @@
         <input type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" class="search-form__input" />
         <span class="search-form__title">Поиск фильмов</span>
         <button type="submit" class="btn"><svg class="site-nav__icon-search">
+
             <use href="./images/svg/sprite.svg#icon-search-2"></use>
-          </svg></button>
+          </svg>
+        </button>
       </form>
     </div>
-    <div class="notification is-visible">Search result not successful. Enter the correct movie name and</div>
+    <div class="notification is-visible">
+      Search result not successful. Enter the correct movie name and search again.
+    </div>
     <div class="overlay transform">
-      <button type="submit" class="overlay__btn">Watched</button>
-      <button type="submit" class="overlay__btn">queue</button>
+      <button type="submit" class="overlay__btn js-btn-watched">Watched</button>
+      <button type="submit" class="overlay__btn js-btn-queue">queue</button>
     </div>
   </div>
 </header>
-
-
-

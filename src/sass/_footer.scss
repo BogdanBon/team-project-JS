@@ -1,0 +1,40 @@
+.footer {
+  display: flex;
+  align-items: center;
+
+  height: 77px;
+  margin-top: 60px;
+
+  background-color: #f7f7f7;
+}
+
+.footer__text {
+  display: flex;
+  justify-content: center;
+
+  font-weight: 400;
+  font-size: 16px;
+
+  color: #545454;
+}
+
+.footer__text > svg {
+  margin: 2px 5px 0px 0px;
+}
+
+.footer__text > span {
+  margin-right: 4px;
+}
+
+.footer__text > a {
+  // margin-left: 4px;
+  text-decoration: underline;
+}
+
+.footer__container {
+  @media screen and (max-width: 767px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

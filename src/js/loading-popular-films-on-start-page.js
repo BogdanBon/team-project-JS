@@ -1,5 +1,6 @@
 import MovieApiService from './movie-service';
 import genres from '../json/genres.json';
+import cardsTpl from '../templates/cards.hbs';
 
 const URL = '/trending/movies/day';
 const cardsContainer = document.querySelector('#cards-container');
@@ -16,18 +17,27 @@ async function fetchFilmsOnStartPage() {
 }
 
 function paintMarUp(markup) {
-  const paintingData = markup.results
-    .map(el => {
-      genresIdToGenresName(el.genre_ids);
-
-      return `<li><img src="https://image.tmdb.org/t/p/w300${el.poster_path}" alt="${el.title}" />
-        <p>${el.title}</p>
-        <p>${Number.parseInt(el.release_date)}</p>
-        <p>${el.vote_average}</p></li>`;
-    })
-    .join('');
+  addUrl(markup.results);
+  genresIdToGenresName(markup.results);
+  // ${Number.parseInt(el.release_date)}
+  const paintingData = cardsTpl(markup.results);
 
   cardsContainer.innerHTML = paintingData;
+}
+
+function addUrl(data) {
+  data.forEach(el => {
+    el.poster_path = `https://image.tmdb.org/t/p/w500${el.poster_path}`;
+
+    if (el.release_date === undefined) {
+      // el.release_date = 2020;
+      el.year = 2020;
+      return;
+    }
+
+    el.year = Number.parseInt(el.release_date);
+    // el.release_date = Number.parseInt(el.release_date);
+  });
 }
 
 function genresIdToGenresName(arrayIds) {
