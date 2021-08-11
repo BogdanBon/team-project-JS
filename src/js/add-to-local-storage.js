@@ -1,17 +1,17 @@
 console.log('hello');
 
-// const titlemodal = document.querySelector('.modal-title');
-// console.log(titlemodal);
+function ifWatched() {
+    if (! localStorage.getItem('watched')) {
+        localStorage.setItem('watched', JSON.stringify([]));
+    }
+    } 
 
-// const addToWatchedBtn = document.querySelector('.modal-btns--watched');
-// console.log(addToWatchedBtn);
+ifWatched();
 
-// const addToWatchedBtn = document.getElementById('#watchedjs');
-// console.log(addToWatchedBtn);
+function ifQueue() {
+    if (! localStorage.getItem('queue')) {
+        localStorage.setItem('queue', JSON.stringify([]));
+    }
+}
 
-// addToWatchedBtn.addEventListener('click', onaAddToWatchedBtn);
-
-// function onaAddToWatchedBtn(evt) {
-    
-//     console.log('klic');
-// } 
+ifQueue();
