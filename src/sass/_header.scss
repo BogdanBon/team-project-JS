@@ -20,8 +20,10 @@ input:active,
 }
 
 .header {
-  height: 230px;
+  margin-bottom: 20px;
+}
 
+.imgHome {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
     url('../images/bg-image/mobile-fon@1x.jpg');
   background-repeat: no-repeat;
@@ -31,6 +33,7 @@ input:active,
   @media screen and (min-width: $tablet) {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
       url('../images/bg-image/tablet-fon@1x.jpg');
+    margin-bottom: 60px;
   }
 
   @media screen and (min-width: $desktop) {
@@ -39,10 +42,30 @@ input:active,
   }
 }
 
-.container {
+.imgLibrary {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+    url('../images/bg-image/libr-mobile-fon@1x.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  @media screen and (min-width: $tablet) {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url('../images/bg-image/libr-tablet-fon@1x.jpg');
+    margin-bottom: 60px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url('../images/bg-image/libr-desctop-fon@1x.jpg');
+  }
+}
+
+.header-container {
   padding: 0px 20px;
   margin: 0px auto;
   width: 320px;
+  height: 230px;
 
   @media screen and (min-width: $tablet) {
     width: 768px;
@@ -66,15 +89,19 @@ input:active,
   }
 }
 
-.site-nav__icon-film {
-  width: 24px;
-  height: 24px;
+.site-nav__logo {
   color: #818181;
+  cursor: pointer;
 
   &:hover,
   &:focus {
     color: $line-color;
   }
+}
+
+.site-nav__icon-film {
+  width: 24px;
+  height: 24px;
 }
 
 .site-nav__name {
@@ -147,6 +174,7 @@ input:active,
 
 .search-form {
   position: relative;
+  min-width: 280px;
 }
 
 ::-webkit-input-placeholder {
@@ -155,21 +183,44 @@ input:active,
 
 .search-form__input {
   padding-bottom: 4px;
-  width: 280px;
   height: 20px;
   background-color: inherit;
   border: none;
   border-bottom: 0.5px solid $font-color;
   color: $font-color;
-  cursor: text;
+  cursor: pointer;
 
   font-family: $primary-font-family;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.14;
 
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:focus,
+  &:hover {
+    border-bottom: 0.5px solid $line-color;
+  }
   @media screen and (min-width: $tablet) {
     width: 336px;
+  }
+}
+
+.search-form__title {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  color: $font-color;
+  transform: translateY(0%);
+
+  .search-form__input:focus + &,
+  .search-form__input:hover + &,
+  .search-form__input:not(:placeholder-shown) + & {
+    transform: translateY(-230%);
+    transition: 0.2s;
+    color: $notification-color;
   }
 }
 
