@@ -58,7 +58,6 @@ function paginationInit(fetchFilms) {
 export async function fetchFilmsOnStartPage() {
   try {
     const fetchFilms = await movieApiService.fetchFilms();
-    console.log(fetchFilms);
     paginationInit(fetchFilms);
     await paintMarUp(fetchFilms);
   } catch {
@@ -90,10 +89,19 @@ function addUrl(data) {
   });
 }
 
-function genresIdToGenresName(arrayIds) {
+function genresIdToGenresName(arrayFilms) {
+  arrayFilms.map(film => {
+    const genreIds = film.genre_ids;
+    film.genre_names = findAndSortGenres(genreIds);
+    // console.log(film.genre_names);
+  });
+  return arrayFilms;
+}
+
+function findAndSortGenres(arraIds) {
   const idsNames = [];
 
-  arrayIds.forEach(id => {
+  arraIds.forEach(id => {
     for (const genre of genres) {
       if (genre.id === id) {
         idsNames.push(genre.name);
@@ -101,7 +109,16 @@ function genresIdToGenresName(arrayIds) {
       }
     }
   });
-  return idsNames;
+
+  if (idsNames.length === 0) {
+    idsNames.push('Others');
+  }
+
+  if (idsNames.length >= 3) {
+    idsNames.splice(2, 5, 'Others');
+  }
+
+  return idsNames.join(', ');
 }
 
 fetchFilmsOnStartPage();
