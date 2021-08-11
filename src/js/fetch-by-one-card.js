@@ -20,29 +20,33 @@ export async function fethByOneCard(el) {
     const markup = makeMarkup(fetchedMovie);
 
     renderCard(markup);
-     // ---------------------------------------------------
+
+    // ---------------------------------------------------
     // FT-18 По нажатию на кнопку "Add to watched" фильм добавляется в просмотренные фильмы текущего пользователя (local-storage)
     const addToWatchedBtn = document.querySelector('.modal-btns--watched');
     addToWatchedBtn.addEventListener('click', onAddToWatchedBtn);
-    
-    function onAddToWatchedBtn(e) {
-      const filmsWatchedArr = localStorage.getItem('watched');
-      const parseWatchedFilmsArr = JSON.parse(filmsWatchedArr);  
-      
-      if (e.target.textContent = "add to Watched") {
-        e.target.textContent = "delete film";
-      }
-    
-     if (parseWatchedFilmsArr.some(o => o.id === fetchedMovie.id)) {
-       parseWatchedFilmsArr.splice(parseWatchedFilmsArr.length -1, 1);
-       localStorage.setItem('watched', JSON.stringify(parseWatchedFilmsArr));
-       addToWatchedBtn.textContent = "add to Watched";
-     } else
-      parseWatchedFilmsArr.push(fetchedMovie);
-      localStorage.setItem('watched', JSON.stringify(parseWatchedFilmsArr));
-      return console.log(parseWatchedFilmsArr);
+    const filmsWatchedArr = localStorage.getItem('watched');
+    const parseWatchedFilmsArr = JSON.parse(filmsWatchedArr);
+
+    if (parseWatchedFilmsArr.some(o => o.id === fetchedMovie.id)) {
+      addToWatchedBtn.textContent = 'delete film';
+    } else {
+      addToWatchedBtn.textContent = 'add to Watched';
     }
-    
+
+    function onAddToWatchedBtn(e) {
+      if (e.target.textContent === 'add to Watched') {
+        parseWatchedFilmsArr.push(fetchedMovie);
+        localStorage.setItem('watched', JSON.stringify(parseWatchedFilmsArr));
+        e.target.textContent = 'delete film';
+      } else {
+        const idx = parseWatchedFilmsArr.findIndex(e => e.id === fetchedMovie.id);
+        parseWatchedFilmsArr.splice(idx, 1);
+        localStorage.setItem('watched', JSON.stringify(parseWatchedFilmsArr));
+        e.target.textContent = 'add to Watched';
+      }
+    }
+
     // FT-19 По нажатию на кнопку "Add to queue" фильм добавляется в очередь текущего пользователя (local-storage)
     const addToQueueBtns = document.querySelector('.modal-btns--queue');
     addToQueueBtns.addEventListener('click', onAddToQueueBtns);
@@ -51,16 +55,15 @@ export async function fethByOneCard(el) {
       const filmsQueueArr = localStorage.getItem('queue');
       const parseQueuefilmsArr = JSON.parse(filmsQueueArr);
 
-      if (e.target.textContent = "add to queue") {
-        e.target.textContent = "delete film";
+      if ((e.target.textContent = 'add to queue')) {
+        e.target.textContent = 'delete film';
       }
 
-      if (parseQueuefilmsArr.some(o=> o.id === fetchedMovie.id)) {
+      if (parseQueuefilmsArr.some(o => o.id === fetchedMovie.id)) {
         parseQueuefilmsArr.splice(parseQueuefilmsArr.length - 1, 1);
         localStorage.setItem('queue', JSON.stringify(parseQueuefilmsArr));
-        addToQueueBtns.textContent = "add to queue"
-      } else
-      parseQueuefilmsArr.push(fetchedMovie);
+        addToQueueBtns.textContent = 'add to queue';
+      } else parseQueuefilmsArr.push(fetchedMovie);
       localStorage.setItem('queue', JSON.stringify(parseQueuefilmsArr));
       return console.log(parseQueuefilmsArr);
     }

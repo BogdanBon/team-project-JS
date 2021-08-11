@@ -7,17 +7,13 @@ import 'tui-pagination/dist/tui-pagination.css';
 export const URL = '/trending/movies/day';
 const cardsContainer = document.querySelector('#cards-container');
 
-const movieApiService = new MovieApiService(URL);
-
-
-
+export const movieApiService = new MovieApiService(URL);
 
 function paginationInit(fetchFilms) {
   if (fetchFilms && fetchFilms.results) {
-   
     const refs = {
-      cardList: document.querySelector('.card__list')
-    }
+      cardList: document.querySelector('.card__list'),
+    };
 
     const options = {
       totalItems: fetchFilms.total_pages,
@@ -42,27 +38,24 @@ function paginationInit(fetchFilms) {
         moreButton:
           '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
           '<span class="tui-ico-ellip">...</span>' +
-          '</a>'
-      }
+          '</a>',
+      },
     };
     const pagination = new Pagination('#tui-pagination-container', options);
 
-    pagination.on('afterMove', async (event) => {
+    pagination.on('afterMove', async event => {
       const activePage = event.page;
 
       refs.cardList.innerHTML = '';
-      movieApiService.page = activePage
-      
-      const fetchFilms = await movieApiService.fetchFilms()
+      movieApiService.page = activePage;
+
+      const fetchFilms = await movieApiService.fetchFilms();
       await paintMarUp(fetchFilms);
-      
     });
-      
-  } 
+  }
 }
 
-
-async function fetchFilmsOnStartPage() {
+export async function fetchFilmsOnStartPage() {
   try {
     const fetchFilms = await movieApiService.fetchFilms();
     console.log(fetchFilms);

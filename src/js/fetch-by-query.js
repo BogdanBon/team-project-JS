@@ -26,7 +26,7 @@ function onSearch(e) {
   refs.cardsContainer.innerHTML = '';
 
   movieApiService.query = e.currentTarget.elements.searchQuery.value;
-    fetchQuery(movieApiService);
+  fetchQuery(movieApiService);
 }
 
 export async function fetchQuery(movieApiService) {
@@ -69,7 +69,6 @@ export function makeMarkup(fetchedMovies) {
   const currentDate = new Date();
 
   fetchedMovies.results.map(el => {
-    console.log(el.title);
     if (!el.title) {
       el.title = el.name;
     }
