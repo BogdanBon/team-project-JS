@@ -104,4 +104,4 @@ module.exports=function(t){return fetch(t).then(function(t){return t.text()})};
 },{}],0:[function(require,module,exports) {
 var b=require("TUK3");b.register("html",require("A3BY"));b.load([["main-content.0160b0f9.html","BUSN"]]).then(function(){require("Focm");});
 },{}]},{},[0], null)
-//# sourceMappingURL=/team-project-JS/src.9b7f6575.js.map
+//# sourceMappingURL=/team-project-JS/src.230f6c37.js.map
