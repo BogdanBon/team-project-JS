@@ -19,10 +19,15 @@
 }
 
 .footer__text > svg {
-  margin: 2px 5px 0px 5px;
+  margin: 2px 5px 0px 0px;
 }
+
+.footer__text > span {
+  margin-right: 4px;
+}
+
 .footer__text > a {
-  margin-left: 4px;
+  // margin-left: 4px;
   text-decoration: underline;
 }
 
