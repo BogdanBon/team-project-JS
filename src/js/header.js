@@ -1,3 +1,4 @@
+import fetchFilmsOnStartPage from './loading-popular-films-on-start-page';
 import { fetchFilmsOnStartPage, movieApiService } from './loading-popular-films-on-start-page';
 export const refs = {
   siteLogo: document.querySelector('.site-nav__logo'),
@@ -15,7 +16,6 @@ export const refs = {
 refs.siteLogo.addEventListener('click', openMainPage);
 refs.homeBtn.addEventListener('click', changeHomePage);
 refs.libBtn.addEventListener('click', changeLibraryPage);
-refs.siteLogo.addEventListener('click', onLogoClick);
 
 function changeLibraryPage(e) {
   refs.form.classList.remove('is-visible');
@@ -44,10 +44,6 @@ function changeHomePage(e) {
 }
 
 function openMainPage(e) {
-  changeHomePage();
-}
-
-function onLogoClick(e) {
   changeHomePage();
 }
 

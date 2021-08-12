@@ -125,3 +125,5 @@ function findAndSortGenres(arraIds) {
 }
 
 fetchFilmsOnStartPage();
+
+export default fetchFilmsOnStartPage;
