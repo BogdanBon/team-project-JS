@@ -56,15 +56,15 @@ export async function fethByOneCard(el) {
     const parseQueuefilmsArr = JSON.parse(filmsQueueArr);
 
      if (parseQueuefilmsArr.some(oq => oq.id === fetchedMovie.id)) {
-      addToQueueBtns.textContent = "remove from Watched";
-      } else { addToQueueBtns.textContent = "add to Watched"}
+      addToQueueBtns.textContent = "remove from queue";
+      } else { addToQueueBtns.textContent = "add to queue"}
 
     function onAddToQueueBtns(e) {
       
       if (e.target.textContent === "add to queue") {
         parseQueuefilmsArr.push(fetchedMovie);
         localStorage.setItem('queue', JSON.stringify(parseQueuefilmsArr));
-        addToQueueBtns.textContent = "remove from Watched";
+        addToQueueBtns.textContent = "remove from queue";
       } else {
         const idxq = parseQueuefilmsArr.findIndex(e => e.id === fetchedMovie.id);
         parseQueuefilmsArr.splice(idxq, 1);
