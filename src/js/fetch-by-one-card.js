@@ -1,10 +1,13 @@
 import MovieApiService from './movie-service';
 import cardTpl from '../templates/modal-card.hbs';
 import noPosterImg from '../images/poster/no-poster.jpg';
+import { showLoading, hideLoading } from './fetch-by-query';
+import { checkWatchedList } from './my-library';
 
 const refs = {
   modal: document.querySelector('.backdrop'),
   modalContent: document.querySelector('.modal__content'),
+  cardsContainer: document.querySelector('#cards-container'),
 };
 
 refs.modal.addEventListener('click', onModalClick);
@@ -13,7 +16,9 @@ export async function fethByOneCard(el) {
   try {
     const URL = `/movie/${el.currentTarget.dataset.id}`;
     const movieApiService = new MovieApiService(URL);
+    showLoading();
     const fetchedMovie = await movieApiService.fetchFilms();
+    hideLoading();
 
     checkPoster(fetchedMovie);
 
@@ -44,6 +49,9 @@ export async function fethByOneCard(el) {
         parseWatchedFilmsArr.splice(idx, 1);
         localStorage.setItem('watched', JSON.stringify(parseWatchedFilmsArr));
         e.target.textContent = 'add to Watched';
+        if (refs.cardsContainer.dataset.page === 'library') {
+          checkWatchedList();
+        }
       }
     }
 
@@ -111,3 +119,5 @@ function closeModal() {
   document.body.classList.remove('backdrop-is-open');
   refs.modal.classList.add('visually-hidden');
 }
+
+function getFilmInfo() {}

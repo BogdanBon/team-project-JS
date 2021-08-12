@@ -1,3 +1,4 @@
+import { showLoading, hideLoading } from './fetch-by-query';
 import MovieApiService from './movie-service';
 import genres from '../json/genres.json';
 import cardsTpl from '../templates/cards.hbs';
@@ -57,7 +58,9 @@ function paginationInit(fetchFilms) {
 
 export async function fetchFilmsOnStartPage() {
   try {
+    showLoading();
     const fetchFilms = await movieApiService.fetchFilms();
+    hideLoading();
     paginationInit(fetchFilms);
     await paintMarUp(fetchFilms);
   } catch {

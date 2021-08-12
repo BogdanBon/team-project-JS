@@ -16,6 +16,7 @@ const refs = {
 
 Notiflix.Loading.init({
   svgColor: `${vars.accentColor}`,
+  svgSize: '120px',
 });
 
 refs.searchForm.addEventListener('submit', onSearch);
@@ -44,6 +45,7 @@ export async function fetchQuery(movieApiService) {
     renderCards(markup);
 
     addListenersToCards('.card__item');
+    localStorage.setItem('currentfilms', JSON.stringify(fetchedMovies));
   } catch (error) {
     console.log(error);
   }
@@ -118,10 +120,10 @@ export function createGenresMarkup(genresIdArr) {
   }
 }
 
-function showLoading() {
+export function showLoading() {
   Notiflix.Loading.arrows('Loading...');
 }
 
-function hideLoading() {
+export function hideLoading() {
   Notiflix.Loading.remove('Loading...');
 }

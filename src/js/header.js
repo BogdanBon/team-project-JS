@@ -40,6 +40,7 @@ function changeHomePage(e) {
 
   movieApiService.page = 1;
   fetchFilmsOnStartPage();
+  refs.cardsContainer.dataset.page = 'home';
 }
 
 function openMainPage(e) {
@@ -52,8 +53,8 @@ function onLogoClick(e) {
 
 // import
 
-const btnWatchedEl = document.querySelector('.js-btn-watched');
-const btnQueueEl = document.querySelector('.js-btn-queue');
+// const btnWatchedEl = document.querySelector('.js-btn-watched');
+// const btnQueueEl = document.querySelector('.js-btn-queue');
 
 // btnWatchedEl.addEventListener('click', checkWatchedList);
 // btnQueueEl.addEventListener('click', checkQueueList);
