@@ -1,10 +1,13 @@
 import MovieApiService from './movie-service';
 import cardTpl from '../templates/modal-card.hbs';
 import noPosterImg from '../images/poster/no-poster.jpg';
+import { showLoading, hideLoading, makeNotificationError } from './fetch-by-query';
+import { renderStorage } from './my-library';
 
 const refs = {
   modal: document.querySelector('.backdrop'),
   modalContent: document.querySelector('.modal__content'),
+  cardsContainer: document.querySelector('#cards-container'),
 };
 
 refs.modal.addEventListener('click', onModalClick);
@@ -13,75 +16,107 @@ export async function fethByOneCard(el) {
   try {
     const URL = `/movie/${el.currentTarget.dataset.id}`;
     const movieApiService = new MovieApiService(URL);
+    showLoading();
     const fetchedMovie = await movieApiService.fetchFilms();
+    hideLoading();
 
     checkPoster(fetchedMovie);
 
     const markup = makeMarkup(fetchedMovie);
 
     renderCard(markup);
+
     // ---------------------------------------------------
     // FT-18 По нажатию на кнопку "Add to watched" фильм добавляется в просмотренные фильмы текущего пользователя (local-storage)
     const addToWatchedBtn = document.querySelector('.modal-btns--watched');
     addToWatchedBtn.addEventListener('click', onAddToWatchedBtn);
-
     const filmsWatchedArr = localStorage.getItem('watched');
     const parseWatchedFilmsArr = JSON.parse(filmsWatchedArr);
 
     if (parseWatchedFilmsArr.some(o => o.id === fetchedMovie.id)) {
-      addToWatchedBtn.textContent = 'delete film';
+      addToWatchedBtn.textContent = 'remove from watched';
     } else {
-      addToWatchedBtn.textContent = 'add to Watched';
+      addToWatchedBtn.textContent = 'add to watched';
     }
 
     function onAddToWatchedBtn(e) {
-      if (e.target.textContent === 'add to Watched') {
+      if (e.target.textContent === 'add to watched') {
         parseWatchedFilmsArr.push(fetchedMovie);
         localStorage.setItem('watched', JSON.stringify(parseWatchedFilmsArr));
-        addToWatchedBtn.textContent = 'delete film';
+        e.target.textContent = 'remove from watched';
       } else {
         const idx = parseWatchedFilmsArr.findIndex(e => e.id === fetchedMovie.id);
         parseWatchedFilmsArr.splice(idx, 1);
         localStorage.setItem('watched', JSON.stringify(parseWatchedFilmsArr));
-        addToWatchedBtn.textContent = 'add to Watched';
+        e.target.textContent = 'add to watched';
       }
-
-      return console.log(parseWatchedFilmsArr);
+      if (
+        refs.cardsContainer.dataset.page === 'library-watched' &&
+        (e.target.textContent === 'add to watched' ||
+          e.target.textContent === 'remove from watched')
+      ) {
+        renderStorage('watched');
+      }
     }
 
     // FT-19 По нажатию на кнопку "Add to queue" фильм добавляется в очередь текущего пользователя (local-storage)
-    const addToQueueBtns = document.querySelector('.modal-btns--queue');
-    addToQueueBtns.addEventListener('click', onAddToQueueBtns);
-
+    const addToQueueBtn = document.querySelector('.modal-btns--queue');
+    addToQueueBtn.addEventListener('click', onAddToQueueBtn);
     const filmsQueueArr = localStorage.getItem('queue');
-    const parseQueuefilmsArr = JSON.parse(filmsQueueArr);
+    const parseQueueFilmsArr = JSON.parse(filmsQueueArr);
 
-    if (parseQueuefilmsArr.some(oq => oq.id === fetchedMovie.id)) {
-      addToQueueBtns.textContent = 'remove from queue';
+    if (parseQueueFilmsArr.some(o => o.id === fetchedMovie.id)) {
+      addToQueueBtn.textContent = 'remove from queue';
     } else {
-      addToQueueBtns.textContent = 'add to queue';
+      addToQueueBtn.textContent = 'add to queue';
     }
 
-    function onAddToQueueBtns(e) {
+    function onAddToQueueBtn(e) {
       if (e.target.textContent === 'add to queue') {
-        parseQueuefilmsArr.push(fetchedMovie);
-        localStorage.setItem('queue', JSON.stringify(parseQueuefilmsArr));
-        addToQueueBtns.textContent = 'remove from queue';
+        parseQueueFilmsArr.push(fetchedMovie);
+        localStorage.setItem('queue', JSON.stringify(parseQueueFilmsArr));
+        e.target.textContent = 'remove from queue';
       } else {
-        const idxq = parseQueuefilmsArr.findIndex(e => e.id === fetchedMovie.id);
-        parseQueuefilmsArr.splice(idxq, 1);
-        localStorage.setItem('queue', JSON.stringify(parseQueuefilmsArr));
-        addToQueueBtns.textContent = 'add to queue';
+        const idx = parseQueueFilmsArr.findIndex(e => e.id === fetchedMovie.id);
+        parseQueueFilmsArr.splice(idx, 1);
+        localStorage.setItem('queue', JSON.stringify(parseQueueFilmsArr));
+        e.target.textContent = 'add to queue';
       }
-
-      return console.log(parseQueuefilmsArr);
+      if (
+        refs.cardsContainer.dataset.page === 'library-queue' &&
+        (e.target.textContent === 'add to queue' || e.target.textContent === 'remove from queue')
+      ) {
+        renderStorage('queue');
+      }
     }
+
+    // const addToQueueBtns = document.querySelector('.modal-btns--queue');
+    // addToQueueBtns.addEventListener('click', onAddToQueueBtns);
+
+    // function onAddToQueueBtns(e) {
+    //   const filmsQueueArr = localStorage.getItem('queue');
+    //   const parseQueuefilmsArr = JSON.parse(filmsQueueArr);
+
+    //   if ((e.target.textContent = 'add to queue')) {
+    //     e.target.textContent = 'delete film';
+    //   }
+
+    //   if (parseQueuefilmsArr.some(o => o.id === fetchedMovie.id)) {
+    //     parseQueuefilmsArr.splice(parseQueuefilmsArr.length - 1, 1);
+    //     localStorage.setItem('queue', JSON.stringify(parseQueuefilmsArr));
+    //     addToQueueBtns.textContent = 'add to queue';
+    //   } else parseQueuefilmsArr.push(fetchedMovie);
+    //   localStorage.setItem('queue', JSON.stringify(parseQueuefilmsArr));
+    //   return console.log(parseQueuefilmsArr);
+    // }
 
     // ---------------------------------------------
 
     window.addEventListener('keydown', onKeyDown);
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
+    hideLoading();
+    makeNotificationError('Film not found');
   }
 }
 

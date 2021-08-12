@@ -1,5 +1,5 @@
-import fetchFilmsOnStartPage from './loading-popular-films-on-start-page';
 import { fetchFilmsOnStartPage, movieApiService } from './loading-popular-films-on-start-page';
+
 export const refs = {
   siteLogo: document.querySelector('.site-nav__logo'),
   navigationBtn: document.querySelector('.site-nav__list'),
@@ -13,7 +13,7 @@ export const refs = {
   cardsContainer: document.querySelector('#cards-container'),
 };
 
-refs.siteLogo.addEventListener('click', openMainPage);
+refs.siteLogo.addEventListener('click', changeHomePage);
 refs.homeBtn.addEventListener('click', changeHomePage);
 refs.libBtn.addEventListener('click', changeLibraryPage);
 
@@ -24,9 +24,9 @@ function changeLibraryPage(e) {
   refs.homeBtn.classList.remove('site-nav__item--current');
   refs.libBtn.classList.add('site-nav__item--current');
   refs.header.classList.replace('imgHome', 'imgLibrary');
-
   refs.cardsContainer.innerHTML = '';
   refs.pagination.classList.add('visually-hidden');
+  refs.cardsContainer.dataset.page = 'library';
 }
 
 function changeHomePage(e) {
@@ -37,28 +37,10 @@ function changeHomePage(e) {
   refs.homeBtn.classList.add('site-nav__item--current');
   refs.header.classList.replace('imgLibrary', 'imgHome');
   refs.pagination.classList.remove('visually-hidden');
+  refs.cardsContainer.dataset.page = 'home';
+  refs.pagination.dataset.fetchtype = '/trending/movies/day';
 
   movieApiService.page = 1;
+
   fetchFilmsOnStartPage();
-  refs.cardsContainer.dataset.page = 'home';
 }
-
-function openMainPage(e) {
-  changeHomePage();
-}
-
-// import
-
-// const btnWatchedEl = document.querySelector('.js-btn-watched');
-// const btnQueueEl = document.querySelector('.js-btn-queue');
-
-// btnWatchedEl.addEventListener('click', checkWatchedList);
-// btnQueueEl.addEventListener('click', checkQueueList);
-
-//     function checkWatchedList() {
-
-//   }
-
-//   function checkQueueList() {
-
-//   }

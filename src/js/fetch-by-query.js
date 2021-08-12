@@ -4,6 +4,7 @@ import MovieApiService from './movie-service';
 import genres from '../json/genres.json';
 import cardsTpl from '../templates/cards.hbs';
 import { fethByOneCard } from './fetch-by-one-card';
+import { pagination } from './pagination';
 import noPosterImg from '../images/poster/no-poster.jpg';
 
 const URL = '/search/movie';
@@ -12,6 +13,7 @@ const movieApiService = new MovieApiService(URL);
 const refs = {
   searchForm: document.querySelector('#search-form'),
   cardsContainer: document.querySelector('#cards-container'),
+  paginationContainer: document.querySelector('#tui-pagination-container'),
 };
 
 Notiflix.Loading.init({
@@ -21,13 +23,17 @@ Notiflix.Loading.init({
 
 refs.searchForm.addEventListener('submit', onSearch);
 
-function onSearch(e) {
+async function onSearch(e) {
   e.preventDefault();
 
   refs.cardsContainer.innerHTML = '';
+  refs.paginationContainer.dataset.fetchtype = URL;
 
   movieApiService.query = e.currentTarget.elements.searchQuery.value;
-  fetchQuery(movieApiService);
+  movieApiService.page = 1;
+
+  await fetchQuery(movieApiService);
+  pagination.reset(movieApiService.totalResults);
 }
 
 export async function fetchQuery(movieApiService) {
@@ -35,7 +41,7 @@ export async function fetchQuery(movieApiService) {
     showLoading();
 
     const fetchedMovies = await movieApiService.fetchFilms();
-
+    movieApiService.totalResults = fetchedMovies.total_results;
     hideLoading();
 
     checkPoster(fetchedMovies);
@@ -45,9 +51,11 @@ export async function fetchQuery(movieApiService) {
     renderCards(markup);
 
     addListenersToCards('.card__item');
+
     localStorage.setItem('currentfilms', JSON.stringify(fetchedMovies));
   } catch (error) {
     console.log(error);
+    hideLoading();
   }
 }
 
@@ -68,14 +76,12 @@ export function addListenersToCards(selector) {
 
 // Розмітка всіх карточок
 export function makeMarkup(fetchedMovies) {
-  const currentDate = new Date();
-
-  fetchedMovies.results.map(el => {
+  fetchedMovies.results.forEach(el => {
     if (!el.title) {
       el.title = el.name;
     }
 
-    el.year = el.release_date ? el.release_date.split('-')[0] : currentDate.getFullYear();
+    el.year = el.release_date ? el.release_date.split('-')[0] : new Date().getFullYear();
     el.genre_names = createGenresMarkup(el.genre_ids);
   });
 
@@ -126,4 +132,8 @@ export function showLoading() {
 
 export function hideLoading() {
   Notiflix.Loading.remove('Loading...');
+}
+
+export function makeNotificationError(text) {
+  Notiflix.Notify.failure(text.toUpperCase());
 }

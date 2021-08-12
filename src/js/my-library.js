@@ -7,12 +7,22 @@ const refs = {
   cardsContainer: document.querySelector('#cards-container'),
 };
 
-refs.btnWatchedEl.addEventListener('click', checkWatchedList);
-refs.btnQueueEl.addEventListener('click', checkQueueList);
+refs.btnWatchedEl.addEventListener('click', getStorageWatched);
+refs.btnQueueEl.addEventListener('click', getStorageQueue);
 
-export function checkWatchedList() {
-  refs.cardsContainer.dataset.page = 'library';
-  const filmsWatchedArr = localStorage.getItem('watched');
+function getStorageWatched(e) {
+  renderStorage(e.target.textContent);
+  refs.cardsContainer.dataset.page = 'library-watched';
+}
+
+function getStorageQueue(e) {
+  renderStorage(e.target.textContent);
+  refs.cardsContainer.dataset.page = 'library-queue';
+}
+
+export function renderStorage(key) {
+  const filmsWatchedArr = localStorage.getItem(key);
+
   const parseWatchedFilmsArr = JSON.parse(filmsWatchedArr);
   let genreNamesArr = [];
   parseWatchedFilmsArr.forEach(e => {
@@ -33,5 +43,3 @@ export function checkWatchedList() {
     el.addEventListener('click', fethByOneCard);
   });
 }
-
-function checkQueueList() {}

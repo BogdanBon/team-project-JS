@@ -1,5 +1,5 @@
 <header class="header imgHome">
-  <div class="header-container">
+  <div class="container header-container">
     <nav class="site-nav">
       <a href="#" class="site-nav__logo">
         <svg class="site-nav__icon-film">
@@ -13,10 +13,16 @@
     </nav>
     <div class="form is-visible">
       <form class="search-form" id="search-form">
-        <input type="text" name="searchQuery" autocomplete="off" placeholder="Поиск фильмов" class="search-form__input" />
+        <input
+          type="text"
+          name="searchQuery"
+          autocomplete="off"
+          placeholder="Поиск фильмов"
+          class="search-form__input"
+        />
         <span class="search-form__title">Find a film</span>
-        <button type="submit" class="btn"><svg class="site-nav__icon-search">
-
+        <button type="submit" class="btn">
+          <svg class="site-nav__icon-search">
             <use href="./images/svg/sprite.svg#icon-search-2"></use>
           </svg>
         </button>
@@ -26,8 +32,8 @@
       Search result not successful. Enter the correct movie name and search again.
     </div>
     <div class="overlay transform">
-      <button type="submit" class="overlay__btn js-btn-watched">Watched</button>
-      <button type="submit" class="overlay__btn js-btn-queue">queue</button>
+      <button type="button" class="overlay__btn js-btn-watched">watched</button>
+      <button type="button" class="overlay__btn js-btn-queue">queue</button>
     </div>
   </div>
 </header>
