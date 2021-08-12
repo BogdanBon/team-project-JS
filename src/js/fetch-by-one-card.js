@@ -24,22 +24,27 @@ export async function fethByOneCard(el) {
     // FT-18 По нажатию на кнопку "Add to watched" фильм добавляется в просмотренные фильмы текущего пользователя (local-storage)
     const addToWatchedBtn = document.querySelector('.modal-btns--watched');
     addToWatchedBtn.addEventListener('click', onAddToWatchedBtn);
+
+    const filmsWatchedArr = localStorage.getItem('watched');
+    const parseWatchedFilmsArr = JSON.parse(filmsWatchedArr);
+    
+    if (parseWatchedFilmsArr.some(o => o.id === fetchedMovie.id)) {
+      addToWatchedBtn.textContent = "delete film";
+      } else { addToWatchedBtn.textContent = "add to Watched"}
     
     function onAddToWatchedBtn(e) {
-      const filmsWatchedArr = localStorage.getItem('watched');
-      const parseWatchedFilmsArr = JSON.parse(filmsWatchedArr);  
       
-      if (e.target.textContent = "add to Watched") {
-        e.target.textContent = "delete film";
-      }
-    
-     if (parseWatchedFilmsArr.some(o => o.id === fetchedMovie.id)) {
-       parseWatchedFilmsArr.splice(parseWatchedFilmsArr.length -1, 1);
-       localStorage.setItem('watched', JSON.stringify(parseWatchedFilmsArr));
-       addToWatchedBtn.textContent = "add to Watched";
-     } else
-      parseWatchedFilmsArr.push(fetchedMovie);
-      localStorage.setItem('watched', JSON.stringify(parseWatchedFilmsArr));
+      if (e.target.textContent === "add to Watched") {
+        parseWatchedFilmsArr.push(fetchedMovie);
+        localStorage.setItem('watched', JSON.stringify(parseWatchedFilmsArr));
+        addToWatchedBtn.textContent = "delete film";
+      } else {
+        const idx = parseWatchedFilmsArr.findIndex(e => e.id === fetchedMovie.id);
+        parseWatchedFilmsArr.splice(idx, 1);
+        localStorage.setItem('watched', JSON.stringify(parseWatchedFilmsArr));
+        addToWatchedBtn.textContent = "add to Watched";
+       }
+
       return console.log(parseWatchedFilmsArr);
     }
     
@@ -47,21 +52,26 @@ export async function fethByOneCard(el) {
     const addToQueueBtns = document.querySelector('.modal-btns--queue');
     addToQueueBtns.addEventListener('click', onAddToQueueBtns);
 
+    const filmsQueueArr = localStorage.getItem('queue');
+    const parseQueuefilmsArr = JSON.parse(filmsQueueArr);
+
+     if (parseQueuefilmsArr.some(oq => oq.id === fetchedMovie.id)) {
+      addToQueueBtns.textContent = "remove from queue";
+      } else { addToQueueBtns.textContent = "add to queue"}
+
     function onAddToQueueBtns(e) {
-      const filmsQueueArr = localStorage.getItem('queue');
-      const parseQueuefilmsArr = JSON.parse(filmsQueueArr);
-
-      if (e.target.textContent = "add to queue") {
-        e.target.textContent = "delete film";
-      }
-
-      if (parseQueuefilmsArr.some(o=> o.id === fetchedMovie.id)) {
-        parseQueuefilmsArr.splice(parseQueuefilmsArr.length - 1, 1);
+      
+      if (e.target.textContent === "add to queue") {
+        parseQueuefilmsArr.push(fetchedMovie);
         localStorage.setItem('queue', JSON.stringify(parseQueuefilmsArr));
-        addToQueueBtns.textContent = "add to queue"
-      } else
-      parseQueuefilmsArr.push(fetchedMovie);
-      localStorage.setItem('queue', JSON.stringify(parseQueuefilmsArr));
+        addToQueueBtns.textContent = "remove from queue";
+      } else {
+        const idxq = parseQueuefilmsArr.findIndex(e => e.id === fetchedMovie.id);
+        parseQueuefilmsArr.splice(idxq, 1);
+        localStorage.setItem('queue', JSON.stringify(parseQueuefilmsArr));
+        addToQueueBtns.textContent = "add to queue";
+      }
+        
       return console.log(parseQueuefilmsArr);
     }
 

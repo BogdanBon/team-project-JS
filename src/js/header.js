@@ -40,11 +40,11 @@ function openMainPage(e) {
 
 // import
 
-const btnWatchedEl = document.querySelector('.js-btn-watched');
-const btnQueueEl = document.querySelector('.js-btn-queue');
+// const btnWatchedEl = document.querySelector('.js-btn-watched');
+//     const btnQueueEl = document.querySelector('.js-btn-queue')
 
-btnWatchedEl.addEventListener('click', checkWatchedList);
-btnQueueEl.addEventListener('click', checkQueueList);
+//       btnWatchedEl.addEventListener("click", checkWatchedList);
+//     btnQueueEl.addEventListener("click", checkQueueList);
 
 //     function checkWatchedList() {
 
