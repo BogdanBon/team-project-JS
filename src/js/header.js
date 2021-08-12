@@ -1,3 +1,5 @@
+import fetchFilmsOnStartPage from './loading-popular-films-on-start-page';
+
 const refs = {
   siteLogo: document.querySelector('.site-nav__logo'),
   navigationBtn: document.querySelector('.site-nav__list'),
@@ -12,7 +14,6 @@ const refs = {
 refs.siteLogo.addEventListener('click', openMainPage);
 refs.homeBtn.addEventListener('click', changeHomePage);
 refs.libBtn.addEventListener('click', changeLibraryPage);
-refs.siteLogo.addEventListener('click', onLogoClick);
 
 function changeLibraryPage(e) {
   refs.form.classList.remove('is-visible');
@@ -30,13 +31,10 @@ function changeHomePage(e) {
   refs.libBtn.classList.remove('site-nav__item--current');
   refs.homeBtn.classList.add('site-nav__item--current');
   refs.header.classList.replace('imgLibrary', 'imgHome');
+  fetchFilmsOnStartPage();
 }
 
 function openMainPage(e) {
-  changeHomePage();
-}
-
-function onLogoClick(e) {
   changeHomePage();
 }
 
