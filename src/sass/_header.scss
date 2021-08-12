@@ -230,9 +230,9 @@ input:active,
   .search-form__input:focus + &,
   .search-form__input:hover + &,
   .search-form__input:not(:placeholder-shown) + & {
-    transform: translateY(-230%);
+    transform: translateY(-120%);
     transition: 0.2s;
-    color: $notification-color;
+    color: $line-color;
   }
 }
 

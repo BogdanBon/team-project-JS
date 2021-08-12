@@ -1,3 +1,4 @@
+import fetchFilmsOnStartPage from './loading-popular-films-on-start-page';
 
 const refs = {
   siteLogo: document.querySelector('.site-nav__logo'),
@@ -13,7 +14,6 @@ const refs = {
 refs.siteLogo.addEventListener('click', openMainPage);
 refs.homeBtn.addEventListener('click', changeHomePage);
 refs.libBtn.addEventListener('click', changeLibraryPage);
-refs.siteLogo.addEventListener('click', onLogoClick);
 
 function changeLibraryPage(e) {
   refs.form.classList.remove('is-visible');
@@ -31,32 +31,25 @@ function changeHomePage(e) {
   refs.libBtn.classList.remove('site-nav__item--current');
   refs.homeBtn.classList.add('site-nav__item--current');
   refs.header.classList.replace('imgLibrary', 'imgHome');
+  fetchFilmsOnStartPage();
 }
 
 function openMainPage(e) {
   changeHomePage();
 }
 
-function onLogoClick(e) {
-  changeHomePage();
-}
-
 // import
 
-
-
-
 const btnWatchedEl = document.querySelector('.js-btn-watched');
-    const btnQueueEl = document.querySelector('.js-btn-queue')
+const btnQueueEl = document.querySelector('.js-btn-queue');
 
+btnWatchedEl.addEventListener('click', checkWatchedList);
+btnQueueEl.addEventListener('click', checkQueueList);
 
-      btnWatchedEl.addEventListener("click", checkWatchedList);
-    btnQueueEl.addEventListener("click", checkQueueList);
-    
 //     function checkWatchedList() {
-    
+
 //   }
 
 //   function checkQueueList() {
-   
+
 //   }
