@@ -1,4 +1,3 @@
-
 const refs = {
   siteLogo: document.querySelector('.site-nav__logo'),
   navigationBtn: document.querySelector('.site-nav__list'),
@@ -43,20 +42,16 @@ function onLogoClick(e) {
 
 // import
 
+// const btnWatchedEl = document.querySelector('.js-btn-watched');
+//     const btnQueueEl = document.querySelector('.js-btn-queue')
 
+//       btnWatchedEl.addEventListener("click", checkWatchedList);
+//     btnQueueEl.addEventListener("click", checkQueueList);
 
-
-const btnWatchedEl = document.querySelector('.js-btn-watched');
-    const btnQueueEl = document.querySelector('.js-btn-queue')
-
-
-      btnWatchedEl.addEventListener("click", checkWatchedList);
-    btnQueueEl.addEventListener("click", checkQueueList);
-    
 //     function checkWatchedList() {
-    
+
 //   }
 
 //   function checkQueueList() {
-   
+
 //   }
