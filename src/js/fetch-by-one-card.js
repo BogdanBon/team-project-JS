@@ -111,12 +111,14 @@ export function innerAdd(key, target, fetchedMovie) {
     parsedFilmsArr.push(fetchedMovie);
     localStorage.setItem(key, JSON.stringify(parsedFilmsArr));
     target.textContent = `remove from ${key}`;
+    target.classList.add('modal-btns-active');
   } else {
     const idx = parsedFilmsArr.findIndex(e => e.id === fetchedMovie.id);
 
     parsedFilmsArr.splice(idx, 1);
     localStorage.setItem(key, JSON.stringify(parsedFilmsArr));
     target.textContent = `add to ${key}`;
+    target.classList.remove('modal-btns-active');
   }
 
   if (

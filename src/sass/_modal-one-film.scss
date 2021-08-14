@@ -218,6 +218,14 @@ ul {
   height: 44px;
   width: 112px;
   cursor: pointer;
+  transition: all 1000ms ease;
+
+  &:hover {
+    font-size: 13px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+    transition: linear;
+    border: none;
+  }
 
   @media screen and (min-width: 768px) {
     width: 125px;
@@ -229,8 +237,9 @@ ul {
 }
 
 .modal-btns--watched {
-  background: #ff6b01;
-  color: #ffffff;
+  background: #ffffff;
+  border: 1px solid #000000;
+  color: #000000;
 
   @media screen and (min-width: 1024px) {
     margin-right: 15px;
@@ -238,6 +247,12 @@ ul {
 }
 
 .modal-btns--queue {
+  background: #ffffff;
   border: 1px solid #000000;
   color: #000000;
+}
+
+.modal-btns-active {
+  background: #ff6b01;
+  color: #ffffff;
 }
