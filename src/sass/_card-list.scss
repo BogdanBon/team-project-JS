@@ -3,10 +3,15 @@
   margin-bottom: 20px;
 }
 
-.card__img {
+.thumb {
   width: 280px;
   height: 400px;
   margin-bottom: 10px;
+}
+
+.card__img {
+  height: 100%;
+  width: 100%;
   object-fit: cover;
 }
 
@@ -62,30 +67,26 @@
   .card__list {
     display: flex;
     flex-wrap: wrap;
-    margin-left: -30px;
-    margin-top: -30px;
+    justify-content: space-between;
   }
 
   .card__item {
-    width: calc((50% - 30px));
-    margin-left: 30px;
-    margin-top: 30px;
-    margin-bottom: 0;
+    width: 295px;
   }
 
-  .card__img {
+  .thumb {
     width: 295px;
     height: 400px;
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .card__item {
-    width: calc((100% / 3 - 30px));
-  }
-
-  .card__img {
+  .thumb {
     width: 275px;
     height: 440px;
+  }
+
+  .card__item {
+    width: 275px;
   }
 }

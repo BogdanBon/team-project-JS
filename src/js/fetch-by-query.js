@@ -14,6 +14,7 @@ const refs = {
   searchForm: document.querySelector('#search-form'),
   cardsContainer: document.querySelector('#cards-container'),
   paginationContainer: document.querySelector('#tui-pagination-container'),
+  notification: document.querySelector('.notification'),
 };
 
 Notiflix.Loading.init({
@@ -26,13 +27,21 @@ refs.searchForm.addEventListener('submit', onSearch);
 async function onSearch(e) {
   e.preventDefault();
 
-  refs.cardsContainer.innerHTML = '';
-  refs.paginationContainer.dataset.fetchtype = URL;
+  refs.notification.classList.remove('is-visible');
 
   movieApiService.query = e.currentTarget.elements.searchQuery.value;
+
+  if (!movieApiService.query) {
+    refs.notification.classList.add('is-visible');
+    return;
+  }
+
+  refs.paginationContainer.dataset.fetchtype = '/search/movie';
+
   movieApiService.page = 1;
 
   await fetchQuery(movieApiService);
+
   pagination.reset(movieApiService.totalResults);
 }
 
@@ -41,8 +50,18 @@ export async function fetchQuery(movieApiService) {
     showLoading();
 
     const fetchedMovies = await movieApiService.fetchFilms();
+
     movieApiService.totalResults = fetchedMovies.total_results;
+
     hideLoading();
+
+    if (!movieApiService.totalResults) {
+      refs.notification.classList.add('is-visible');
+      refs.paginationContainer.dataset.fetchtype = '/trending/movies/day';
+      return;
+    }
+
+    refs.cardsContainer.innerHTML = '';
 
     checkPoster(fetchedMovies);
 
@@ -51,8 +70,6 @@ export async function fetchQuery(movieApiService) {
     renderCards(markup);
 
     addListenersToCards('.card__item');
-
-    localStorage.setItem('currentfilms', JSON.stringify(fetchedMovies));
   } catch (error) {
     console.log(error);
     hideLoading();
