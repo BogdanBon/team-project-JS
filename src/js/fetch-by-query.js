@@ -4,6 +4,7 @@ import MovieApiService from './movie-service';
 import genres from '../json/genres.json';
 import cardsTpl from '../templates/cards.hbs';
 import { fethByOneCard } from './fetch-by-one-card';
+import { pagination } from './pagination';
 import noPosterImg from '../images/poster/no-poster.jpg';
 
 const URL = '/search/movie';
@@ -12,21 +13,36 @@ const movieApiService = new MovieApiService(URL);
 const refs = {
   searchForm: document.querySelector('#search-form'),
   cardsContainer: document.querySelector('#cards-container'),
+  paginationContainer: document.querySelector('#tui-pagination-container'),
+  notification: document.querySelector('.notification'),
 };
 
 Notiflix.Loading.init({
   svgColor: `${vars.accentColor}`,
+  svgSize: '120px',
 });
 
 refs.searchForm.addEventListener('submit', onSearch);
 
-function onSearch(e) {
+async function onSearch(e) {
   e.preventDefault();
 
-  refs.cardsContainer.innerHTML = '';
+  refs.notification.classList.remove('is-visible');
 
   movieApiService.query = e.currentTarget.elements.searchQuery.value;
-    fetchQuery(movieApiService);
+
+  if (!movieApiService.query) {
+    refs.notification.classList.add('is-visible');
+    return;
+  }
+
+  refs.paginationContainer.dataset.fetchtype = '/search/movie';
+
+  movieApiService.page = 1;
+
+  await fetchQuery(movieApiService);
+
+  pagination.reset(movieApiService.totalResults);
 }
 
 export async function fetchQuery(movieApiService) {
@@ -35,7 +51,17 @@ export async function fetchQuery(movieApiService) {
 
     const fetchedMovies = await movieApiService.fetchFilms();
 
+    movieApiService.totalResults = fetchedMovies.total_results;
+
     hideLoading();
+
+    if (!movieApiService.totalResults) {
+      refs.notification.classList.add('is-visible');
+      refs.paginationContainer.dataset.fetchtype = '/trending/movies/day';
+      return;
+    }
+
+    refs.cardsContainer.innerHTML = '';
 
     checkPoster(fetchedMovies);
 
@@ -46,6 +72,7 @@ export async function fetchQuery(movieApiService) {
     addListenersToCards('.card__item');
   } catch (error) {
     console.log(error);
+    hideLoading();
   }
 }
 
@@ -66,15 +93,12 @@ export function addListenersToCards(selector) {
 
 // Розмітка всіх карточок
 export function makeMarkup(fetchedMovies) {
-  const currentDate = new Date();
-
-  fetchedMovies.results.map(el => {
-    console.log(el.title);
+  fetchedMovies.results.forEach(el => {
     if (!el.title) {
       el.title = el.name;
     }
 
-    el.year = el.release_date ? el.release_date.split('-')[0] : currentDate.getFullYear();
+    el.year = el.release_date ? el.release_date.split('-')[0] : new Date().getFullYear();
     el.genre_names = createGenresMarkup(el.genre_ids);
   });
 
@@ -119,10 +143,14 @@ export function createGenresMarkup(genresIdArr) {
   }
 }
 
-function showLoading() {
+export function showLoading() {
   Notiflix.Loading.arrows('Loading...');
 }
 
-function hideLoading() {
+export function hideLoading() {
   Notiflix.Loading.remove('Loading...');
+}
+
+export function makeNotificationError(text) {
+  Notiflix.Notify.failure(text.toUpperCase());
 }

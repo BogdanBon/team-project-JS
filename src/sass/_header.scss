@@ -62,41 +62,17 @@ input:active,
 }
 
 .header-container {
-  padding: 0px 20px;
-  margin: 0px auto;
-  width: 320px;
   height: 230px;
-  @media screen and (min-width: $tablet) {
-    width: 768px;
-  }
-
-  @media screen and (min-width: $desktop) {
-    width: 1024px;
-  }
 }
-// .container {
-//   padding: 0px 20px;
-//   margin: 0px auto;
-//   width: 320px;
-
-//   @media screen and (min-width: $tablet) {
-//     width: 768px;
-//   }
-
-//   @media screen and (min-width: $desktop) {
-//     width: 1024px;
-//   }
-// }
 
 .site-nav {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   padding-top: 46px;
   padding-bottom: 43px;
 
   @media screen and (min-width: $tablet) {
-    padding-left: 51px;
     padding-bottom: 37px;
   }
 }
@@ -149,12 +125,6 @@ input:active,
     margin-right: 39px;
   }
 
-  &:last-child {
-    @media screen and (min-width: $tablet) {
-      margin-right: 50px;
-    }
-  }
-
   &:hover,
   &:focus {
     color: $line-color;
@@ -196,6 +166,7 @@ input:active,
 .search-form__input {
   padding-bottom: 4px;
   height: 20px;
+  width: 100%;
   background-color: inherit;
   border: none;
   border-bottom: 0.5px solid $font-color;
@@ -225,6 +196,7 @@ input:active,
   left: 0px;
   top: 0px;
   color: $font-color;
+  cursor: pointer;
   transform: translateY(0%);
 
   .search-form__input:focus + &,
@@ -275,11 +247,8 @@ input:active,
   opacity: 0;
 
   @media screen and (min-width: $tablet) {
-    left: 32%;
-  }
-
-  @media screen and (min-width: $desktop) {
-    left: 40%;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
@@ -315,4 +284,8 @@ input:active,
 
 .transform {
   transform: translateX(-500%);
+}
+
+.btn-is-active {
+  background-color: $btn-color;
 }

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
- const API_KEY = '0980f8d9bb3ef32f176d32e94a3ccac0';
- const BASE_URL = 'https://api.themoviedb.org/3';
+const API_KEY = '0980f8d9bb3ef32f176d32e94a3ccac0';
+const BASE_URL = 'https://api.themoviedb.org/3';
 
 export default class MovieApiService {
   constructor(currentUrl) {
@@ -15,10 +15,12 @@ export default class MovieApiService {
         page: 1,
       },
     };
+    this.totalResults = 0;
   }
 
-  async fetchFilms() {  
+  async fetchFilms() {
     const response = await axios.request(this.options);
+    this.totalResults = response.data.totalResults;
     return response.data;
   }
 

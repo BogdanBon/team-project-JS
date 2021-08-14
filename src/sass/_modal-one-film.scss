@@ -13,8 +13,6 @@ ul {
   cursor: pointer;
 }
 
-// mobile
-
 .backdrop {
   background-color: rgba(0, 0, 0, 0.7);
   position: fixed;
@@ -23,60 +21,112 @@ ul {
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  padding: 20px;
 }
 
 .modal__content {
   position: relative;
-  width: 100%;
+  margin: 0 auto;
+  width: 280px;
   display: flex;
   align-items: center;
   flex-direction: column;
   padding: 45px 20px;
   background-color: white;
+
+  @media screen and (min-width: 768px) {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 618px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 882px;
+    padding: 50px 30px;
+  }
 }
 
-.modal__content_left-img {
+.modal__content_left {
   margin-bottom: 30px;
-}
-
-.film-img {
   width: 240px;
   height: 356px;
   border-radius: 5px;
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 0;
+    width: 265px;
+    height: 375px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 395px;
+    height: 480px;
+  }
+}
+
+.film-img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
 .modal-title {
-  margin: 0;
-  text-align: left;
   text-transform: uppercase;
+
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    font-size: 30px;
+  }
+}
+
+.modal__content_right {
+  @media screen and (min-width: 768px) {
+    width: 264px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 395px;
+  }
 }
 
 .modal__content_right-info {
   margin-top: 20px;
 }
 
-.table {
-  // display: flex;
-}
-
 .flex {
   display: flex;
-  // flex-direction: column;
-  justify-content: space-between;
   align-items: center;
+
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+}
+
+.film__info {
+  width: 100%;
 }
 
 .film__info--left {
-  display: flex;
-  margin-right: 40px;
-  // text-align: left;
+  width: 50%;
+
+  @media screen and (min-width: 768px) {
+    width: 110px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 150px;
+  }
 }
 
 .film__info--right {
   display: flex;
-  // text-align: left;
+  width: 50%;
+  text-align: left;
 }
 
 .info-subtitle {
@@ -85,7 +135,6 @@ ul {
   font-size: 12px;
   line-height: 1.3;
   color: #8c8c8c;
-  // margin-bottom: 10px;
 }
 
 .info-value {
@@ -131,11 +180,17 @@ ul {
 
 .info-value--genres {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .modal__content_right-about {
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.about-subtitle {
+  font-size: 12px;
+  margin-bottom: 10px;
 }
 
 .about-info {
@@ -147,40 +202,42 @@ ul {
 .modal__content_right-btns {
   display: flex;
   justify-content: space-between;
+
+  @media screen and (min-width: 1024px) {
+    justify-content: start;
+  }
 }
 
 .modal-btns {
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
   text-align: center;
-
   font-weight: 500;
   font-size: 12px;
   line-height: 1.3;
   text-transform: uppercase;
-
   border-radius: 5px;
   height: 44px;
   width: 112px;
-
-  padding: 7px;
-  margin: 2px;
-
   cursor: pointer;
+
+  @media screen and (min-width: 768px) {
+    width: 125px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 135px;
+  }
 }
 
 .modal-btns--watched {
   background: #ff6b01;
   color: #ffffff;
+
+  @media screen and (min-width: 1024px) {
+    margin-right: 15px;
+  }
 }
 
 .modal-btns--queue {
   border: 1px solid #000000;
-  // box-sizing: border-box;
   color: #000000;
 }
-
-// LAPTOP
-
-// DESCTOP

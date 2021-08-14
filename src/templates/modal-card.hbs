@@ -1,24 +1,12 @@
 <div class='modal--close'></div>
 <div class='modal__content_left'>
-  <div class='modal__content_left-img'>
-    <img class='film-img' src='{{poster_path}}' alt='Poster' />
-  </div>
+  <img class='film-img' src='{{poster_path}}' alt='Poster' />
 </div>
 <div class='modal__content_right'>
   <div class='modal__content_right-title'>
     <h1 class='modal-title'>{{title}}</h1>
   </div>
   <div class='modal__content_right-info'>
-    {{!-- <div class="film__info flex">
-      <div class="film__info--left">
-        <h3 class='info-subtitle'>Vote / Votes</h3>
-      </div>
-      <div class="film__info--right">
-        <span class='info-value'>{{vote_average}}</span>
-        <span class='info-value'>/</span>
-        <span class='info-value'>{{vote_count}}</span>
-      </div>
-    </div> --}}
     <table class='film__info'>
       <tbody class='table'>
 
@@ -71,11 +59,7 @@
     <p class='about-info'>{{overview}}</p>
   </div>
   <div class='modal__content_right-btns'>
-    <button type='button' class='modal-btns modal-btns--watched' id ='watchedjs'>
-      add to Watched
-    </button>
-    <button type='button' class='modal-btns modal-btns--queue'>
-      add to queue
-    </button>
+    <button type='button' class='modal-btns modal-btns--watched' id='watchedjs'>add to watched</button>
+    <button type='button' class='modal-btns modal-btns--queue'>add to queue</button>
   </div>
 </div>

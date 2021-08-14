@@ -1,7 +1,9 @@
 {{#each this}}
   <li class='card__item' data-id='{{id}}'>
     <article class='card'>
-      <img class='card__img' src='{{poster_path}}' alt='{{title}}' />
+      <div class='thumb'>
+        <img class='card__img' src='{{poster_path}}' alt='{{title}}' />
+      </div>
       <div class='card__content'>
         <h2 class='card__name'>{{title}}</h2>
         <div class='card__description'>
