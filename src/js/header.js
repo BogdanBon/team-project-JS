@@ -64,12 +64,3 @@ function changeHomePage(e) {
 
   fetchQuery(movieApiService);
 }
-
-function updatePage() {
-  refs.input.value = '';
-  movieApiService.page = 1;
-  movieApiService.options.url = '/trending/movies/day';
-  refs.paginationContainer.dataset.fetchtype = '/trending/movies/day';
-  pagination.reset(20000);
-  fetchQuery(movieApiService);
-}
