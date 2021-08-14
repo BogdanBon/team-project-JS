@@ -38,18 +38,33 @@ function openMainPage(e) {
   changeHomePage();
 }
 
-// import
 
-// const btnWatchedEl = document.querySelector('.js-btn-watched');
-//     const btnQueueEl = document.querySelector('.js-btn-queue')
 
-//       btnWatchedEl.addEventListener("click", checkWatchedList);
-//     btnQueueEl.addEventListener("click", checkQueueList);
+// btn
+function hendlerBtn() {
+const btnWatchedEl = document.querySelector('.js-btn-watched');
+const btnQueueEl = document.querySelector('.js-btn-queue');
 
-//     function checkWatchedList() {
+const watchedList = JSON.parse(localStorage.getItem("watched")) || [];
+const queueList = JSON.parse(localStorage.getItem("queue")) || [];
+  
 
-//   }
+  if (queueList.find((item) => item.id === id)) {
+    btnQueueEl.classList.add("details__btn--in-the-list");
+    btnQueueEl.textContent = `In queue list`;
+  }
 
-//   function checkQueueList() {
+      btnWatchedEl.addEventListener("click", checkWatchedList);
+    btnQueueEl.addEventListener("click", checkQueueList);
 
-//   }
+    function checkWatchedList() {
+      const watchedList  = JSON.parse(localStorage.getItem("watched")) || [];
+      return;
+  }
+
+  function checkQueueList() {
+    const queueList = JSON.parse(localStorage.getItem("queue")) || [];
+   
+    return;
+}
+}
