@@ -1,6 +1,6 @@
 import MovieApiService from './movie-service';
 import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.css';
+import 'tui-pagination/dist/tui-pagination.min.css';
 import { fetchQuery } from './fetch-by-query';
 
 const refs = {
