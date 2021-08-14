@@ -88,5 +88,10 @@
 
   .card__item {
     width: 275px;
+
+    &:last-child {
+      margin-right: auto;
+      margin-left: 30px;
+    }
   }
 }
