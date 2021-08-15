@@ -3,7 +3,7 @@ import cardTpl from '../templates/modal-card.hbs';
 import noPosterImg from '../images/poster/no-poster.jpg';
 import { showLoading, hideLoading, makeNotificationError } from './fetch-by-query';
 import { renderAllStorage, renderOneStorage } from './my-library';
-import { showTrailer } from './trailer';
+import { showTrailerInner } from './trailer';
 
 const refs = {
   modal: document.querySelector('.backdrop'),
@@ -43,7 +43,9 @@ export async function fethByOneCard(el) {
 
     const addToWatchedBtn = document.querySelector('.modal-btns--watched');
     const addToQueueBtn = document.querySelector('.modal-btns--queue');
-    const trailerBtn = document.querySelector('.modal-title');
+    const trailerBtn = document.querySelector('.trailer__icon');
+    const trailerContainer = document.querySelector('.trailer__container');
+
     trailerBtn.addEventListener('click', showTrailer);
     addToWatchedBtn.addEventListener('click', onAddToWatchedBtn);
     addToQueueBtn.addEventListener('click', onAddToQueueBtn);
@@ -58,6 +60,10 @@ export async function fethByOneCard(el) {
 
     function onAddToQueueBtn(e) {
       innerAdd('queue', e.target, fetchedMovie);
+    }
+
+    function showTrailer(e) {
+      showTrailerInner(fetchedMovie, trailerContainer, refs.modalContent);
     }
 
     window.addEventListener('keydown', onKeyDown);
