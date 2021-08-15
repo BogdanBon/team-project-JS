@@ -1,5 +1,6 @@
 import cardsTpl from '../templates/cards.hbs';
 import modalCardTpl from '../templates/modal-card.hbs';
+import { showTrailer } from './trailer';
 import {
   renderCard,
   innerAdd,
@@ -80,6 +81,9 @@ export function renderOneStorage(e) {
 
   const addToQueueBtn = document.querySelector('.modal-btns--queue');
   addToQueueBtn.addEventListener('click', onAddToQueueBtn);
+
+  const trailerBtn = document.querySelector('.modal-title');
+  trailerBtn.addEventListener('click', showTrailer);
 
   checkBtnText(addToWatchedBtn, 'watched', filmToShow);
 
