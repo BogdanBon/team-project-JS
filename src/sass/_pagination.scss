@@ -10,6 +10,15 @@
   justify-content: center;
   border: none;
   border-radius: 5px;
+
+  &.tui-next-is-ellip,
+  &.tui-prev-is-ellip {
+    display: none;
+
+    @media screen and (min-width: 768px) {
+      display: flex;
+    }
+  }
 }
 
 .tui-pagination .tui-page-btn:hover {

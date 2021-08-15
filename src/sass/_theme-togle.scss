@@ -98,3 +98,42 @@ body {
 .theme-switch__toggle:checked ~ .theme-switch__marker {
   transform: translateX(41px);
 }
+
+body.dark-theme {
+  & .card__name {
+    color: white;
+  }
+
+  & .modal--close {
+    background-image: url('../images/modal/close-white.png');
+
+    &:hover {
+      background-image: url('../images/modal/close-hover.png');
+    }
+  }
+
+  & .modal-btns:hover {
+    box-shadow: 0 0 12px rgba(253, 253, 253, 0.7);
+  }
+
+  & .tui-page-btn {
+    color: #ffffff;
+  }
+
+  & .tui-first,
+  .tui-prev,
+  .tui-prev-is-ellip,
+  .tui-next-is-ellip,
+  .tui-next,
+  .tui-last {
+    background-color: #ffffff;
+  }
+
+  & .tui-first {
+    margin-right: 2px;
+  }
+
+  & .tui-last {
+    margin-left: 2px;
+  }
+}
