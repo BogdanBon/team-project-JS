@@ -98,3 +98,56 @@ body {
 .theme-switch__toggle:checked ~ .theme-switch__marker {
   transform: translateX(41px);
 }
+
+body.dark-theme {
+  & .card__name {
+    color: white;
+  }
+
+  & .modal--close {
+    background-image: url('../images/modal/close-white.png');
+
+    &:hover {
+      background-image: url('../images/modal/close-hover.png');
+    }
+  }
+
+  & .modal-btns:hover {
+    box-shadow: 0 0 12px rgba(253, 253, 253, 0.7);
+  }
+
+  & .tui-page-btn {
+    color: #ffffff;
+  }
+
+  & .tui-first {
+    margin-right: 2px;
+  }
+
+  & .tui-last {
+    margin-left: 2px;
+  }
+
+  .tui-pagination {
+    & .tui-ico-prev {
+      background-position: -26px -12px;
+    }
+
+    & .tui-ico-first {
+      background-position: -13px 0px;
+    }
+
+    & .tui-ico-next {
+      background-position: -21px -24px;
+    }
+
+    & .tui-ico-last {
+      background-position: -13px -12px;
+    }
+
+    & .tui-prev-is-ellip,
+    & .tui-next-is-ellip {
+      display: none;
+    }
+  }
+}

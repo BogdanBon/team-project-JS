@@ -11,6 +11,11 @@ ul {
   height: 30px;
   background-image: url('../images/modal/close.png');
   cursor: pointer;
+  transition: 200ms;
+
+  &:hover {
+    background-image: url('../images/modal/close-hover.png');
+  }
 }
 
 .backdrop {
@@ -22,6 +27,15 @@ ul {
   height: 100%;
   overflow-y: auto;
   z-index: 3;
+
+  &.visually-hidden .modal__content {
+    transform: scale(0.3);
+
+    @media screen and (min-width: 768px) {
+      top: 50%;
+      transform: translateY(-50%) scale(0.3);
+    }
+  }
 }
 
 .modal__content {
@@ -33,10 +47,12 @@ ul {
   flex-direction: column;
   padding: 45px 20px;
   background-color: white;
+  transform: scale(1);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
   @media screen and (min-width: 768px) {
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%) scale(1);
     width: 618px;
     flex-direction: row;
     justify-content: space-between;
@@ -249,8 +265,7 @@ ul {
 .modal-btns-active {
   background: #ff6b01;
   color: #ffffff;
-  border: 6px solid #000000;
-  border-color: #ff6b01;
+  border: 6px solid #ff6b01;
 
   &:hover {
     border-color: #ff6b01;
