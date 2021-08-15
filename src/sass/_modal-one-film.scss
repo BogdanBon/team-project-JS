@@ -11,6 +11,11 @@ ul {
   height: 30px;
   background-image: url('../images/modal/close.png');
   cursor: pointer;
+  transition: 200ms;
+
+  &:hover {
+    background-image: url('../images/modal/close-hover.png');
+  }
 }
 
 .backdrop {
