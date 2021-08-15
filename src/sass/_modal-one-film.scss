@@ -218,13 +218,16 @@ ul {
   height: 44px;
   width: 112px;
   cursor: pointer;
-  transition: all 1000ms ease;
+  transition: all 300ms ease;
+
+  background: #ffffff;
+  border: 1px solid #000000;
+  color: #000000;
 
   &:hover {
     font-size: 13px;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
-    transition: linear;
-    border: none;
+    border-color: #ffffff;
   }
 
   @media screen and (min-width: 768px) {
@@ -232,27 +235,22 @@ ul {
   }
 
   @media screen and (min-width: 1024px) {
-    width: 135px;
+    width: 140px;
   }
 }
 
 .modal-btns--watched {
-  background: #ffffff;
-  border: 1px solid #000000;
-  color: #000000;
-
   @media screen and (min-width: 1024px) {
     margin-right: 15px;
   }
 }
 
-.modal-btns--queue {
-  background: #ffffff;
-  border: 1px solid #000000;
-  color: #000000;
-}
-
 .modal-btns-active {
   background: #ff6b01;
   color: #ffffff;
+  border-color: #ff6b01;
+
+  &:hover {
+    border-color: #ff6b01;
+  }
 }
