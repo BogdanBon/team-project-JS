@@ -25,6 +25,8 @@ export async function fetchFilmsOnStartPage() {
 
 export function paintMarUp(markup) {
   addUrl(markup.results);
+  addYear(markup.results);
+  addTitle(markup.results);
   genresIdToGenresName(markup.results);
 
   const paintingData = cardsTpl(markup.results);
@@ -35,17 +37,34 @@ export function paintMarUp(markup) {
 function addUrl(data) {
   data.forEach(el => {
     el.poster_path = `https://image.tmdb.org/t/p/w500${el.poster_path}`;
+  });
+}
 
-    if (!el.title) {
-      el.title = el.name;
+function addYear(data) {
+  data.forEach(el => {
+    if (!el.release_date) {
+      el.year = Number.parseInt(el.first_air_date);
+      return;
     }
 
-    if (el.release_date === undefined) {
-      el.year = new Date().getFullYear();
+    if (!el.release_date && !el.first_air_date) {
+      el.year = 'No film date';
       return;
     }
 
     el.year = Number.parseInt(el.release_date);
+  });
+}
+
+function addTitle(data) {
+  data.forEach(el => {
+    if (!el.title) {
+      el.title = el.name;
+    }
+
+    if (!el.title && !el.name) {
+      el.title = 'No film name';
+    }
   });
 }
 
@@ -57,10 +76,10 @@ function genresIdToGenresName(arrayFilms) {
   return arrayFilms;
 }
 
-function findAndSortGenres(arraIds) {
+function findAndSortGenres(arrayIds) {
   const idsNames = [];
 
-  arraIds.forEach(id => {
+  arrayIds.forEach(id => {
     for (const genre of genres) {
       if (genre.id === id) {
         idsNames.push(genre.name);
