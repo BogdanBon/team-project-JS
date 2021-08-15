@@ -130,9 +130,13 @@ export function innerAdd(key, target, fetchedMovie) {
 }
 
 export function checkBtnText(btn, btnText, fetchedMovie) {
-  btn.textContent = isFilmInStorage(fetchedMovie.id, btnText)
-    ? `remove from ${btnText}`
-    : `add to ${btnText}`;
+  if (isFilmInStorage(fetchedMovie.id, btnText)) {
+    btn.textContent = `remove from ${btnText}`;
+    btn.classList.add('modal-btns-active');
+  } else {
+    btn.textContent = `add to ${btnText}`;
+    btn.classList.remove('modal-btns-active');
+  }
 }
 
 export function isFilmInStorage(id, key) {
