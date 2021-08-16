@@ -100,7 +100,6 @@ function makeMarkup(fetchedMovie) {
 }
 
 export function renderCard(markup) {
-  refs.modalContent.innerHTML = '';
   refs.modalContent.insertAdjacentHTML('beforeend', markup);
   refs.modal.classList.remove('visually-hidden');
   document.body.classList.add('backdrop-is-open');
@@ -110,6 +109,7 @@ function closeModal() {
   window.removeEventListener('keydown', onKeyDown);
   document.body.classList.remove('backdrop-is-open');
   refs.modal.classList.add('visually-hidden');
+  refs.modalContent.innerHTML = '';
 }
 
 export function innerAdd(key, target, fetchedMovie) {
