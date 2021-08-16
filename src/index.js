@@ -9,3 +9,4 @@ import './js/pagination';
 import './sass/main.scss';
 import './js/theme-togle';
 import './js/trailer';
+import './js/modal-students';
