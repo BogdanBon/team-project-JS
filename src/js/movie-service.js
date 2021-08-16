@@ -39,4 +39,12 @@ export default class MovieApiService {
   set page(newPage) {
     this.options.params.page = newPage;
   }
+
+  get url() {
+    return this.options.url;
+  }
+
+  set url(newUrl) {
+    this.options.url = newUrl;
+  }
 }

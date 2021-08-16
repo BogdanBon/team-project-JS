@@ -29,7 +29,7 @@ pagination.on('afterMove', event => {
   refs.notification.classList.remove('is-visible');
 
   movieApiService.page = event.page;
-  movieApiService.options.url = refs.paginationContainer.dataset.fetchtype;
+  movieApiService.url = refs.paginationContainer.dataset.fetchtype;
   movieApiService.query = refs.searchForm.elements.searchQuery.value;
 
   fetchQuery(movieApiService);
