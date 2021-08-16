@@ -1,5 +1,7 @@
 import cardsTpl from '../templates/cards.hbs';
 import modalCardTpl from '../templates/modal-card.hbs';
+import { showTrailerInner } from './trailer';
+
 import {
   renderCard,
   innerAdd,
@@ -12,9 +14,11 @@ const refs = {
   btnWatchedEl: document.querySelector('.js-btn-watched'),
   btnQueueEl: document.querySelector('.js-btn-queue'),
   cardsContainer: document.querySelector('#cards-container'),
+  modal: document.querySelector('.modal__content'),
 };
 
 let filmToShow;
+let trailerContainer;
 
 refs.btnWatchedEl.addEventListener('click', getStorageWatched);
 refs.btnQueueEl.addEventListener('click', getStorageQueue);
@@ -81,6 +85,11 @@ export function renderOneStorage(e) {
   const addToQueueBtn = document.querySelector('.modal-btns--queue');
   addToQueueBtn.addEventListener('click', onAddToQueueBtn);
 
+  const trailerBtn = document.querySelector('.trailer__icon');
+  trailerBtn.addEventListener('click', showTrailer);
+
+  trailerContainer = document.querySelector('.trailer__container');
+
   checkBtnText(addToWatchedBtn, 'watched', filmToShow);
 
   checkBtnText(addToQueueBtn, 'queue', filmToShow);
@@ -92,4 +101,8 @@ function onAddToWatchedBtn(e) {
 
 function onAddToQueueBtn(e) {
   innerAdd('queue', e.target, filmToShow);
+}
+
+function showTrailer(e) {
+  showTrailerInner(filmToShow, trailerContainer, refs.modal);
 }

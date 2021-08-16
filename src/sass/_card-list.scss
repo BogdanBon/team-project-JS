@@ -89,7 +89,7 @@
   .card__item {
     width: 275px;
 
-    &:last-child {
+    &:nth-child(3n-1) {
       margin-right: auto;
       margin-left: 30px;
     }
