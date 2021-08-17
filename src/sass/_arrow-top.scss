@@ -6,7 +6,7 @@
   width: 40px;
   border: none;
   background-color: rgba(255, 107, 9, 0.5);
-  border-radius: 20px;
+  border-radius: 50px;
   bottom: 20px;
   right: 10px;
   margin-right: -150px;
@@ -59,8 +59,8 @@
 
     &::before,
     &::after {
-      height: 22px;
-      top: 14px;
+      height: 23px;
+      top: 12px;
     }
 
     &::before {
