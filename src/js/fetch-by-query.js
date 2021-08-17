@@ -6,9 +6,12 @@ import cardsTpl from '../templates/cards.hbs';
 import { fethByOneCard } from './fetch-by-one-card';
 import { pagination } from './pagination';
 import noPosterImg from '../images/poster/no-poster.jpg';
+import { checkedGenresArr, filterMovies, checkImagesCount } from './filter-by-genres';
 
 const URL = '/search/movie';
 const movieApiService = new MovieApiService(URL);
+
+let filteredFetchedMovies;
 
 const refs = {
   searchForm: document.querySelector('#search-form'),
@@ -52,6 +55,7 @@ export async function fetchQuery(movieApiService) {
     const fetchedMovies = await movieApiService.fetchFilms();
 
     movieApiService.totalResults = fetchedMovies.total_results;
+    movieApiService.totalPages = fetchedMovies.total_pages;
 
     hideLoading();
 
@@ -61,13 +65,24 @@ export async function fetchQuery(movieApiService) {
       return;
     }
 
-    refs.cardsContainer.innerHTML = '';
-
     checkPoster(fetchedMovies);
 
-    const markup = makeMarkup(fetchedMovies);
+    let markup = '';
+    console.log(checkedGenresArr.length);
+    if (!checkedGenresArr.length) {
+      console.log(checkedGenresArr.length);
+      markup = makeMarkup(fetchedMovies.results);
+    } else {
+      // console.log('dfdf');
+      filteredFetchedMovies = filterMovies(fetchedMovies.results);
+      console.log(filteredFetchedMovies);
+      markup = makeMarkup(filteredFetchedMovies);
+      // console.log(markup);
+    }
 
     renderCards(markup);
+
+    checkImagesCount(movieApiService.totalPages, movieApiService.page);
 
     addListenersToCards('.card__item');
   } catch (error) {
@@ -93,7 +108,8 @@ export function addListenersToCards(selector) {
 
 // Розмітка всіх карточок
 export function makeMarkup(fetchedMovies) {
-  fetchedMovies.results.forEach(el => {
+  // fetchedMovies.results.forEach(el => {
+  fetchedMovies.forEach(el => {
     if (!el.title) {
       el.title = el.name;
     }
@@ -102,7 +118,7 @@ export function makeMarkup(fetchedMovies) {
     el.genre_names = createGenresMarkup(el.genre_ids);
   });
 
-  return cardsTpl(fetchedMovies.results);
+  return cardsTpl(fetchedMovies);
 }
 
 // Рендер всіх карточок

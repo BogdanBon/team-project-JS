@@ -7,6 +7,7 @@ import cardsTpl from '../templates/cards.hbs';
 export const URL = '/trending/movies/day';
 export const movieApiService = new MovieApiService(URL);
 
+const paginationContainer = document.querySelector('#tui-pagination-container');
 const cardsContainer = document.querySelector('#cards-container');
 
 export async function fetchFilmsOnStartPage() {
