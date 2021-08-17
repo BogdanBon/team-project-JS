@@ -10,4 +10,5 @@ import './sass/main.scss';
 import './js/theme-togle';
 import './js/trailer';
 import './js/modal-students';
+import './js/top-arrow';
 import './js/filter-by-genres';

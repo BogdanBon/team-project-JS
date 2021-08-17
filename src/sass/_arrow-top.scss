@@ -1,0 +1,80 @@
+.top-arrow {
+  position: fixed;
+  display: block;
+  box-sizing: border-box;
+  height: 45px;
+  width: 45px;
+  border: none;
+  background-color: rgba(255, 107, 9, 0.5);
+  border-radius: 50px;
+  bottom: 20px;
+  right: 10px;
+  margin-right: -150px;
+  outline: none;
+  opacity: 0;
+  transition: all 250ms ease-in-out, margin-right 0.5s ease-out;
+  cursor: pointer;
+  z-index: 5;
+
+  &:hover {
+    background-color: #ff6b08;
+    opacity: 1;
+
+    &::after,
+    &::before {
+      background-color: #ffffff;
+    }
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    height: 18px;
+    width: 4px;
+    background-color: #000000;
+    top: 13px;
+    transition: all 250ms ease-in-out;
+  }
+
+  &::before {
+    left: 15px;
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    right: 15px;
+    transform: rotate(-45deg);
+  }
+
+  @media screen and (min-width: 768px) {
+    right: 10px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 50px;
+    height: 50px;
+    right: 30px;
+    bottom: 30px;
+
+    &::before,
+    &::after {
+      height: 23px;
+      top: 12px;
+    }
+
+    &::before {
+      left: 15px;
+    }
+
+    &::after {
+      right: 17px;
+    }
+  }
+}
+
+.up-top {
+  transition: all 250ms ease-in-out, margin-right 0.2s ease-out;
+  margin-right: 0px;
+  opacity: 0.7;
+}
