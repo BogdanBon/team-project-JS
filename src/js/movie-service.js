@@ -17,6 +17,7 @@ export default class MovieApiService {
     };
     this.totalResults = 0;
     this.totalPages = 0;
+    this.films = [];
   }
 
   async fetchFilms() {

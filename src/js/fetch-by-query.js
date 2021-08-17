@@ -6,18 +6,21 @@ import cardsTpl from '../templates/cards.hbs';
 import { fethByOneCard } from './fetch-by-one-card';
 import { pagination } from './pagination';
 import noPosterImg from '../images/poster/no-poster.jpg';
-import { checkedGenresArr, filterMovies, checkImagesCount } from './filter-by-genres';
-
+import { checkedGenresArr, filterMovies, checkImagesCount, observer } from './filter-by-genres';
+// const sentinelMarkup = '<div id="sentinel"></div>';
 const URL = '/search/movie';
 const movieApiService = new MovieApiService(URL);
 
 let filteredFetchedMovies;
+let filteredFetchedMoviesCurrent;
 
 const refs = {
   searchForm: document.querySelector('#search-form'),
   cardsContainer: document.querySelector('#cards-container'),
   paginationContainer: document.querySelector('#tui-pagination-container'),
   notification: document.querySelector('.notification'),
+  sentinelContainer: document.querySelector('.sentinel__container'),
+  genreBtns: document.querySelectorAll('.genres__checkbox'),
 };
 
 Notiflix.Loading.init({
@@ -39,11 +42,30 @@ async function onSearch(e) {
     return;
   }
 
+  // refs.sentinelContainer.innerHTML = '';
+  observer.unobserve(sentinel);
+
   refs.paginationContainer.dataset.fetchtype = '/search/movie';
 
   movieApiService.page = 1;
 
+  refs.cardsContainer.innerHTML = '';
+
+  refs.genreBtns.forEach(e => {
+    e.checked = false;
+  });
+
+  checkedGenresArr.splice(0, checkedGenresArr.length);
+
   await fetchQuery(movieApiService);
+
+  // console.dir(refs.genreBtns[1]);
+
+  // if (refs.genreBtns.some(e => e.checked === true)) {
+  //   refs.sentinelContainer.innerHTML = sentinelMarkup;
+  // }
+
+  // movieApiService.totalResults = fetchedMovies.total_results;
 
   pagination.reset(movieApiService.totalResults);
 }
@@ -68,16 +90,27 @@ export async function fetchQuery(movieApiService) {
     checkPoster(fetchedMovies);
 
     let markup = '';
-    console.log(checkedGenresArr.length);
+
     if (!checkedGenresArr.length) {
-      console.log(checkedGenresArr.length);
+      refs.paginationContainer.classList.remove('visually-hidden');
       markup = makeMarkup(fetchedMovies.results);
     } else {
-      // console.log('dfdf');
+      // filteredFetchedMovies = filterMovies(fetchedMovies.results);
+
+      // while (filteredFetchedMovies.length < 4) {
+      //   movieApiService.page += 1;
+      //   const fetchedMovies1 = await movieApiService.fetchFilms();
+      //   filteredFetchedMoviesCurrent = filterMovies(fetchedMovies1.results);
+      //   console.log(filteredFetchedMoviesCurrent);
+      //   filteredFetchedMovies.push(filteredFetchedMoviesCurrent);
+      // }
+
+      // markup = makeMarkup(filteredFetchedMovies);
+
       filteredFetchedMovies = filterMovies(fetchedMovies.results);
       console.log(filteredFetchedMovies);
+      // movieApiService.films = filteredFetchedMovies;
       markup = makeMarkup(filteredFetchedMovies);
-      // console.log(markup);
     }
 
     renderCards(markup);

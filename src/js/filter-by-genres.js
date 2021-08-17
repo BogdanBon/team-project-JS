@@ -4,22 +4,26 @@ import { pagination } from './pagination';
 
 export let checkedGenresArr = [];
 let showMore = true;
+let countFilms = 0;
 
 const paginationContainer = document.querySelector('#tui-pagination-container');
 const searchForm = document.querySelector('#search-form');
-const genreBtn = document.querySelector('.genres__container');
+const genreContainer = document.querySelector('.genres__container');
 const sentinelContainer = document.querySelector('.sentinel__container');
 const cardsContainer = document.querySelector('#cards-container');
+const genreBtns = document.querySelectorAll('.genres__checkbox');
 
-const optionsObserver = { rootMargin: '200px' };
-const sentinelMarkup = '<div id="sentinel"></div>';
-const observer = new IntersectionObserver(onEntry, optionsObserver);
+const optionsObserver = { rootMargin: '10px' };
+export const observer = new IntersectionObserver(onEntry, optionsObserver);
+const sentinel = document.querySelector('#sentinel');
+
+// const sentinelMarkup = '<div id="sentinel"></div>';
 
 const movieApiService = new MovieApiService(paginationContainer.dataset.fetchtype);
 
-genreBtn.addEventListener('change', onHendleBtn);
+genreContainer.addEventListener('change', onHendleBtn);
 
-function onHendleBtn(e) {
+async function onHendleBtn(e) {
   // const checkedGenre = e.target.dataset.genre;
   movieApiService.url = paginationContainer.dataset.fetchtype;
   movieApiService.page = 1;
@@ -29,32 +33,31 @@ function onHendleBtn(e) {
     checkedGenresArr.push(Number(e.target.value));
   } else {
     const idx = checkedGenresArr.findIndex(el => el === Number(e.target.value));
-    console.log(idx);
     checkedGenresArr.splice(idx, 1);
   }
 
-  if (checkedGenresArr.length) {
-    paginationContainer.classList.add('visually-hidden');
+  observer.unobserve(sentinel);
 
-    sentinelContainer.innerHTML = sentinelMarkup;
-    const sentinel = document.querySelector('#sentinel');
+  // if (paginationContainer.classList.contains('visually-hidden')) {
+  //   console.log('movieApiService');
+
+  //   cardsContainer.innerHTML = '';
+  // } else {
+  //   cardsContainer.innerHTML = '';
+  // }
+
+  cardsContainer.innerHTML = '';
+
+  await fetchQuery(movieApiService);
+
+  if (checkedGenresArr.length) {
     observer.observe(sentinel);
+    paginationContainer.classList.add('visually-hidden');
   } else {
     paginationContainer.classList.remove('visually-hidden');
-    // movieApiService.page = 1;
-    // movieApiService.url = paginationContainer.dataset.fetchtype;
-    pagination.reset(movieApiService.totalResults);
-    sentinelContainer.innerHTML = '';
   }
 
-  if (paginationContainer.classList.contains('visually-hidden')) {
-    console.log('movieApiService');
-
-    cardsContainer.innerHTML = '';
-  } else {
-  }
-
-  fetchQuery(movieApiService);
+  pagination.reset(movieApiService.totalResults);
 
   // const totalResults = fetchedImages.totalHits;
   // const currentPage = imagesApiService.page;
@@ -86,8 +89,22 @@ function onEntry(entries) {
     // if (entry.isIntersecting && movieApiService.page !== 1 && showMore) {
     //   fetchQuery(movieApiService);
     // }
+
     if (entry.isIntersecting) {
-      console.log('in');
+      //   console.log('in');
+
+      //   countFilms = 0;
+      //   movieApiService.page += 1;
+      //   do {
+      //     fetchQuery(movieApiService);
+      //     movieApiService.page += 1;
+
+      //     countFilms += movieApiService.films.length;
+      //     console.log(countFilms);
+      //     console.log(movieApiService);
+      //   } while (countFilms < 5);
+      // movieApiService.page -= 1;
+
       movieApiService.page += 1;
       fetchQuery(movieApiService);
     }
