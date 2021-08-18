@@ -1,0 +1,65 @@
+.genres__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 5px;
+
+  @media screen and (min-width: $desktop) {
+    width: 618px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.genres__item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-left: 5px;
+  width: calc(33% - 10px);
+  height: 25px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  background-color: #ff6b08;
+  color: #ffffff;
+  @media screen and (min-width: $tablet) {
+    width: calc(16% - 10px);
+  }
+}
+
+.genres__text {
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+  font-size: 12px;
+
+  &::before {
+    display: block;
+    padding: 3px;
+    content: '';
+    margin-right: 4px;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #ffffff;
+
+    border-radius: 2px;
+    background-color: #ffffff;
+    transition: all 250ms ease;
+  }
+}
+
+.genres__checkbox {
+  &:checked + .genres__text::before {
+    background-image: url('../images/check.png');
+    background-size: cover;
+  }
+}
+
+.sentinel {
+  color: #ff6b08;
+  text-align: center;
+  font-size: 20px;
+}

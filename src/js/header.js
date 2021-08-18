@@ -2,6 +2,7 @@ import { fetchFilmsOnStartPage, movieApiService } from './loading-popular-films-
 import { renderAllStorage } from './my-library';
 import { pagination } from './pagination';
 import { fetchQuery } from './fetch-by-query';
+import { checkedGenresArr, observer } from './filter-by-genres';
 
 export const refs = {
   siteLogo: document.querySelector('.site-nav__logo'),
@@ -19,6 +20,9 @@ export const refs = {
   cardsContainer: document.querySelector('#cards-container'),
   btnWatchedEl: document.querySelector('.js-btn-watched'),
   btnQueueEl: document.querySelector('.js-btn-queue'),
+  sentinel: document.querySelector('#sentinel'),
+  genreBtns: document.querySelectorAll('.genres__checkbox'),
+  genreList: document.querySelector('.genres__container'),
 };
 
 refs.siteLogo.addEventListener('click', changeHomePage);
@@ -37,9 +41,11 @@ function changeLibraryPage(e) {
   refs.cardsContainer.dataset.page = 'library';
   refs.btnWatchedEl.classList.add('btn-is-active');
   refs.btnQueueEl.classList.remove('btn-is-active');
-
+  observer.unobserve(refs.sentinel);
   renderAllStorage('watched');
   refs.cardsContainer.dataset.page = 'library-watched';
+  refs.genreList.classList.add('visually-hidden');
+  refs.sentinel.classList.add('visually-hidden');
 }
 
 function changeHomePage(e) {
@@ -60,7 +66,17 @@ function changeHomePage(e) {
   movieApiService.page = 1;
   movieApiService.options.url = '/trending/movies/day';
   refs.paginationContainer.dataset.fetchtype = '/trending/movies/day';
+  refs.genreList.classList.remove('visually-hidden');
+  refs.sentinel.classList.add('visually-hidden');
+
   pagination.reset(20000);
+
+  observer.unobserve(refs.sentinel);
+
+  refs.genreBtns.forEach(e => {
+    e.checked = false;
+  });
+  checkedGenresArr.splice(0, checkedGenresArr.length);
 
   fetchQuery(movieApiService);
 }

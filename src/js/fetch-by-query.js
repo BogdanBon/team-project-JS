@@ -6,15 +6,22 @@ import cardsTpl from '../templates/cards.hbs';
 import { fethByOneCard } from './fetch-by-one-card';
 import { pagination } from './pagination';
 import noPosterImg from '../images/poster/no-poster.jpg';
+import { checkedGenresArr, filterMovies, checkImagesCount, observer } from './filter-by-genres';
 
 const URL = '/search/movie';
 const movieApiService = new MovieApiService(URL);
+
+let filteredFetchedMovies = [];
+let filteredFetchedMoviesCurrent = [];
 
 const refs = {
   searchForm: document.querySelector('#search-form'),
   cardsContainer: document.querySelector('#cards-container'),
   paginationContainer: document.querySelector('#tui-pagination-container'),
   notification: document.querySelector('.notification'),
+  sentinelContainer: document.querySelector('.sentinel__container'),
+  sentinel: document.querySelector('.sentinel'),
+  genreBtns: document.querySelectorAll('.genres__checkbox'),
 };
 
 Notiflix.Loading.init({
@@ -28,17 +35,30 @@ async function onSearch(e) {
   e.preventDefault();
 
   refs.notification.classList.remove('is-visible');
+  refs.sentinel.classList.add('visually-hidden');
 
   movieApiService.query = e.currentTarget.elements.searchQuery.value;
+
+  movieApiService.url = '/search/movie';
 
   if (!movieApiService.query) {
     refs.notification.classList.add('is-visible');
     return;
   }
 
+  observer.unobserve(sentinel);
+
   refs.paginationContainer.dataset.fetchtype = '/search/movie';
 
   movieApiService.page = 1;
+
+  refs.cardsContainer.innerHTML = '';
+
+  refs.genreBtns.forEach(e => {
+    e.checked = false;
+  });
+
+  checkedGenresArr.splice(0, checkedGenresArr.length);
 
   await fetchQuery(movieApiService);
 
@@ -52,33 +72,67 @@ export async function fetchQuery(movieApiService) {
     const fetchedMovies = await movieApiService.fetchFilms();
 
     movieApiService.totalResults = fetchedMovies.total_results;
-
-    hideLoading();
+    movieApiService.totalPages = fetchedMovies.total_pages;
 
     if (!movieApiService.totalResults) {
       refs.notification.classList.add('is-visible');
-      refs.paginationContainer.dataset.fetchtype = '/trending/movies/day';
       return;
     }
 
-    refs.cardsContainer.innerHTML = '';
+    let markup = '';
 
-    checkPoster(fetchedMovies);
+    if (!checkedGenresArr.length) {
+      refs.paginationContainer.classList.remove('visually-hidden');
+      refs.paginationContainer.dataset.fetchtype = movieApiService.url;
 
-    const markup = makeMarkup(fetchedMovies);
+      checkPoster(fetchedMovies.results);
+
+      markup = makeMarkup(fetchedMovies.results);
+    } else {
+      let fetchedMovies1 = [];
+      let fetchedMovies1Current = [];
+
+      filteredFetchedMovies = [...filterMovies(fetchedMovies.results)];
+
+      while (
+        filteredFetchedMovies.length < 4 &&
+        fetchedMovies.total_pages >= movieApiService.page
+      ) {
+        movieApiService.page += 1;
+
+        const films = await movieApiService.fetchFilms();
+
+        fetchedMovies1Current = [...films.results];
+
+        fetchedMovies1 = [...fetchedMovies1Current];
+
+        filteredFetchedMoviesCurrent = [...filterMovies(fetchedMovies1)];
+
+        filteredFetchedMovies.push(...filteredFetchedMoviesCurrent);
+      }
+
+      checkPoster(filteredFetchedMovies);
+
+      markup = makeMarkup(filteredFetchedMovies);
+    }
+
+    hideLoading();
 
     renderCards(markup);
+
+    checkImagesCount(movieApiService.totalPages, movieApiService.page);
 
     addListenersToCards('.card__item');
   } catch (error) {
     console.log(error);
+
     hideLoading();
   }
 }
 
 // У фільми де немає постера - добавляє заготовку
 export function checkPoster(fetchedMovies) {
-  fetchedMovies.results.forEach(e => {
+  fetchedMovies.forEach(e => {
     e.poster_path = e.poster_path ? `https://image.tmdb.org/t/p/w500${e.poster_path}` : noPosterImg;
   });
 }
@@ -93,7 +147,8 @@ export function addListenersToCards(selector) {
 
 // Розмітка всіх карточок
 export function makeMarkup(fetchedMovies) {
-  fetchedMovies.results.forEach(el => {
+  // fetchedMovies.results.forEach(el => {
+  fetchedMovies.forEach(el => {
     if (!el.title) {
       el.title = el.name;
     }
@@ -102,7 +157,7 @@ export function makeMarkup(fetchedMovies) {
     el.genre_names = createGenresMarkup(el.genre_ids);
   });
 
-  return cardsTpl(fetchedMovies.results);
+  return cardsTpl(fetchedMovies);
 }
 
 // Рендер всіх карточок
