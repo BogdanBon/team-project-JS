@@ -76,6 +76,7 @@ export async function fetchQuery(movieApiService) {
 
     if (!movieApiService.totalResults) {
       refs.notification.classList.add('is-visible');
+      hideLoading();
       return;
     }
 
