@@ -7,12 +7,12 @@ import { fethByOneCard } from './fetch-by-one-card';
 import { pagination } from './pagination';
 import noPosterImg from '../images/poster/no-poster.jpg';
 import { checkedGenresArr, filterMovies, checkImagesCount, observer } from './filter-by-genres';
-// const sentinelMarkup = '<div id="sentinel"></div>';
+
 const URL = '/search/movie';
 const movieApiService = new MovieApiService(URL);
 
-let filteredFetchedMovies;
-let filteredFetchedMoviesCurrent;
+let filteredFetchedMovies = [];
+let filteredFetchedMoviesCurrent = [];
 
 const refs = {
   searchForm: document.querySelector('#search-form'),
@@ -20,6 +20,7 @@ const refs = {
   paginationContainer: document.querySelector('#tui-pagination-container'),
   notification: document.querySelector('.notification'),
   sentinelContainer: document.querySelector('.sentinel__container'),
+  sentinel: document.querySelector('.sentinel'),
   genreBtns: document.querySelectorAll('.genres__checkbox'),
 };
 
@@ -34,15 +35,17 @@ async function onSearch(e) {
   e.preventDefault();
 
   refs.notification.classList.remove('is-visible');
+  refs.sentinel.classList.add('visually-hidden');
 
   movieApiService.query = e.currentTarget.elements.searchQuery.value;
+
+  movieApiService.url = '/search/movie';
 
   if (!movieApiService.query) {
     refs.notification.classList.add('is-visible');
     return;
   }
 
-  // refs.sentinelContainer.innerHTML = '';
   observer.unobserve(sentinel);
 
   refs.paginationContainer.dataset.fetchtype = '/search/movie';
@@ -59,14 +62,6 @@ async function onSearch(e) {
 
   await fetchQuery(movieApiService);
 
-  // console.dir(refs.genreBtns[1]);
-
-  // if (refs.genreBtns.some(e => e.checked === true)) {
-  //   refs.sentinelContainer.innerHTML = sentinelMarkup;
-  // }
-
-  // movieApiService.totalResults = fetchedMovies.total_results;
-
   pagination.reset(movieApiService.totalResults);
 }
 
@@ -79,39 +74,49 @@ export async function fetchQuery(movieApiService) {
     movieApiService.totalResults = fetchedMovies.total_results;
     movieApiService.totalPages = fetchedMovies.total_pages;
 
-    hideLoading();
-
     if (!movieApiService.totalResults) {
       refs.notification.classList.add('is-visible');
-      refs.paginationContainer.dataset.fetchtype = '/trending/movies/day';
       return;
     }
-
-    checkPoster(fetchedMovies);
 
     let markup = '';
 
     if (!checkedGenresArr.length) {
       refs.paginationContainer.classList.remove('visually-hidden');
+      refs.paginationContainer.dataset.fetchtype = movieApiService.url;
+
+      checkPoster(fetchedMovies.results);
+
       markup = makeMarkup(fetchedMovies.results);
     } else {
-      // filteredFetchedMovies = filterMovies(fetchedMovies.results);
+      let fetchedMovies1 = [];
+      let fetchedMovies1Current = [];
 
-      // while (filteredFetchedMovies.length < 4) {
-      //   movieApiService.page += 1;
-      //   const fetchedMovies1 = await movieApiService.fetchFilms();
-      //   filteredFetchedMoviesCurrent = filterMovies(fetchedMovies1.results);
-      //   console.log(filteredFetchedMoviesCurrent);
-      //   filteredFetchedMovies.push(filteredFetchedMoviesCurrent);
-      // }
+      filteredFetchedMovies = [...filterMovies(fetchedMovies.results)];
 
-      // markup = makeMarkup(filteredFetchedMovies);
+      while (
+        filteredFetchedMovies.length < 4 &&
+        fetchedMovies.total_pages >= movieApiService.page
+      ) {
+        movieApiService.page += 1;
 
-      filteredFetchedMovies = filterMovies(fetchedMovies.results);
-      console.log(filteredFetchedMovies);
-      // movieApiService.films = filteredFetchedMovies;
+        const films = await movieApiService.fetchFilms();
+
+        fetchedMovies1Current = [...films.results];
+
+        fetchedMovies1 = [...fetchedMovies1Current];
+
+        filteredFetchedMoviesCurrent = [...filterMovies(fetchedMovies1)];
+
+        filteredFetchedMovies.push(...filteredFetchedMoviesCurrent);
+      }
+
+      checkPoster(filteredFetchedMovies);
+
       markup = makeMarkup(filteredFetchedMovies);
     }
+
+    hideLoading();
 
     renderCards(markup);
 
@@ -120,13 +125,14 @@ export async function fetchQuery(movieApiService) {
     addListenersToCards('.card__item');
   } catch (error) {
     console.log(error);
+
     hideLoading();
   }
 }
 
 // У фільми де немає постера - добавляє заготовку
 export function checkPoster(fetchedMovies) {
-  fetchedMovies.results.forEach(e => {
+  fetchedMovies.forEach(e => {
     e.poster_path = e.poster_path ? `https://image.tmdb.org/t/p/w500${e.poster_path}` : noPosterImg;
   });
 }

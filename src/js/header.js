@@ -22,6 +22,7 @@ export const refs = {
   btnQueueEl: document.querySelector('.js-btn-queue'),
   sentinel: document.querySelector('#sentinel'),
   genreBtns: document.querySelectorAll('.genres__checkbox'),
+  genreList: document.querySelector('.genres__container'),
 };
 
 refs.siteLogo.addEventListener('click', changeHomePage);
@@ -43,6 +44,8 @@ function changeLibraryPage(e) {
   observer.unobserve(refs.sentinel);
   renderAllStorage('watched');
   refs.cardsContainer.dataset.page = 'library-watched';
+  refs.genreList.classList.add('visually-hidden');
+  refs.sentinel.classList.add('visually-hidden');
 }
 
 function changeHomePage(e) {
@@ -63,6 +66,9 @@ function changeHomePage(e) {
   movieApiService.page = 1;
   movieApiService.options.url = '/trending/movies/day';
   refs.paginationContainer.dataset.fetchtype = '/trending/movies/day';
+  refs.genreList.classList.remove('visually-hidden');
+  refs.sentinel.classList.add('visually-hidden');
+
   pagination.reset(20000);
 
   observer.unobserve(refs.sentinel);
