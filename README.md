@@ -1,58 +1,29 @@
-# Parcel boilerplate
+Our team congrat's you visit our Project repository!
 
-## Скрытые файлы
+This project help us to understand each other in time pressure and to be a real team. Each of us try to do our best to find out the answers for Project questions. In time we write code we checking ourselves and our teammates code too.
 
-Включите отображение скрытых файлов и папок в проводнике своей операционной системы, иначе вы не
-сможете выбрать и скопировать себе файлы настроек проекта, имена которых начинаются с точки.
+We also take into consideration the dependecies of Project parts between each other.
 
-## Зависимости
+Many thanks to:
 
-На компьютере должена быть установлена LTS-версия [Node.js](https://nodejs.org/en/) со всеми
-дополнительными инструментами кроме **Chocolatey** - его ставить не нужно.
+https://github.com/mashtalerleonid
 
-## Перед началом работы
+https://github.com/halyna-ala
 
-Один раз на проект установить все зависимости.
+https://github.com/AlexRosly
 
-```shell
-npm ci
-```
+https://github.com/Tetiana4
 
-### Разработка
+https://github.com/MaksymPryhorko
 
-Запустить режим разработки.
+https://github.com/MishanyaZh
 
-```shell
-npm run dev
-```
+https://github.com/varynskyi
 
-Во вкладке браузера перейти по адресу [http://localhost:1234](http://localhost:1234).
+https://github.com/BogdanBon
 
-### Деплой
 
-Сборка будет автоматически собирать и деплоить продакшен версию проекта на GitHub Pages, в ветку
-`gh-pages`, каждый раз когда обновляется ветка `main`. Например, после прямого пуша или принятого
-пул-реквеста. Для этого необходимо в файле `package.json` отредактировать поле `homepage` и скрипт
-`build`, заменив `имя_пользователя` и `имя_репозитория` на свои.
+Please find out the link to our Project in head of this repository
 
-```json
-"homepage": "https://имя_пользователя.github.io/имя_репозитория",
-"scripts": {
-  "build": "parcel build src/*.html --public-url /имя_репозитория/"
-},
-```
+See you
 
-На всякий случай стоит зайти в настройки репозитория `Settings` > `Pages` и убедиться что продакшен
-версии файлов раздаются из папки `/root` ветки `gh-pages`.
-
-Через какое-то время живую страницу можно будет посмотреть по адресу указанному в отредактированном
-свойстве `homepage`, например
-[https://goitacademy.github.io/parcel-project-template](https://goitacademy.github.io/parcel-project-template).
-
-## Файлы и папки
-
-- Все паршалы файлов стилей должны лежать в папке `src/sass` и импортироваться в
-  `src/sass/main.scss`
-- Изображения добавляйте в папку `src/images`, заранее оптимизировав их. Сборщик просто копирует
-  используемые изображения чтобы не нагружать систему оптимизацией картинок, так как на слабых
-  компьютерах это может занять много времени.
