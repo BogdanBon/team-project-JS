@@ -15,6 +15,7 @@ const refs = {
   btnQueueEl: document.querySelector('.js-btn-queue'),
   cardsContainer: document.querySelector('#cards-container'),
   modal: document.querySelector('.modal__content'),
+  footer: document.querySelector('.footer'),
 };
 
 let filmToShow;
@@ -29,6 +30,12 @@ export function getStorageWatched(e) {
 
   renderAllStorage(e.target.textContent);
   refs.cardsContainer.dataset.page = 'library-watched';
+
+  if (refs.cardsContainer.scrollHeight < window.innerHeight - 320) {
+    refs.footer.classList.add('fixed-footer');
+  } else {
+    refs.footer.classList.remove('fixed-footer');
+  }
 }
 
 function getStorageQueue(e) {
@@ -37,6 +44,13 @@ function getStorageQueue(e) {
 
   renderAllStorage(e.target.textContent);
   refs.cardsContainer.dataset.page = 'library-queue';
+
+  console.log(refs.cardsContainer.scrollHeight);
+  if (refs.cardsContainer.scrollHeight < window.innerHeight - 320) {
+    refs.footer.classList.add('fixed-footer');
+  } else {
+    refs.footer.classList.remove('fixed-footer');
+  }
 }
 
 export function renderAllStorage(key) {

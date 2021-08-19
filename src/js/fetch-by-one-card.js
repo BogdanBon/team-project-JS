@@ -9,6 +9,7 @@ const refs = {
   modal: document.querySelector('.backdrop'),
   modalContent: document.querySelector('.modal__content'),
   cardsContainer: document.querySelector('#cards-container'),
+  footer: document.querySelector('.footer'),
 };
 
 let fetchedMovie;
@@ -135,6 +136,12 @@ export function innerAdd(key, target, fetchedMovie) {
     (target.textContent === `add to ${key}` || target.textContent === `remove from ${key}`)
   ) {
     renderAllStorage(key);
+  }
+
+  if (refs.cardsContainer.scrollHeight < window.innerHeight - 320) {
+    refs.footer.classList.add('fixed-footer');
+  } else {
+    refs.footer.classList.remove('fixed-footer');
   }
 }
 
