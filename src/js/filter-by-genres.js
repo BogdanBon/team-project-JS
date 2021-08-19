@@ -42,6 +42,10 @@ async function onHendleBtn(e) {
     } else {
       movieApiService.url = '/search/movie';
     }
+
+    if (movieApiService.query === '') {
+      movieApiService.url = '/movie/top_rated';
+    }
   } else {
     paginationContainer.classList.remove('visually-hidden');
     movieApiService.url = paginationContainer.dataset.fetchtype;

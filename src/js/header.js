@@ -23,6 +23,7 @@ export const refs = {
   sentinel: document.querySelector('#sentinel'),
   genreBtns: document.querySelectorAll('.genres__checkbox'),
   genreList: document.querySelector('.genres__container'),
+  footer: document.querySelector('.footer'),
 };
 
 refs.siteLogo.addEventListener('click', changeHomePage);
@@ -46,6 +47,12 @@ function changeLibraryPage(e) {
   refs.cardsContainer.dataset.page = 'library-watched';
   refs.genreList.classList.add('visually-hidden');
   refs.sentinel.classList.add('visually-hidden');
+
+  if (refs.cardsContainer.scrollHeight < window.innerHeight - 320) {
+    refs.footer.classList.add('fixed-footer');
+  } else {
+    refs.footer.classList.remove('fixed-footer');
+  }
 }
 
 function changeHomePage(e) {
@@ -68,6 +75,7 @@ function changeHomePage(e) {
   refs.paginationContainer.dataset.fetchtype = '/trending/movies/day';
   refs.genreList.classList.remove('visually-hidden');
   refs.sentinel.classList.add('visually-hidden');
+  refs.footer.classList.remove('fixed-footer');
 
   pagination.reset(20000);
 

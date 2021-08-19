@@ -7,7 +7,6 @@ import { fethByOneCard } from './fetch-by-one-card';
 import { pagination } from './pagination';
 import noPosterImg from '../images/poster/no-poster.jpg';
 import { checkedGenresArr, filterMovies, checkImagesCount, observer } from './filter-by-genres';
-
 const URL = '/search/movie';
 const movieApiService = new MovieApiService(URL);
 
@@ -22,6 +21,7 @@ const refs = {
   sentinelContainer: document.querySelector('.sentinel__container'),
   sentinel: document.querySelector('.sentinel'),
   genreBtns: document.querySelectorAll('.genres__checkbox'),
+  footer: document.querySelector('.footer'),
 };
 
 Notiflix.Loading.init({
@@ -63,6 +63,12 @@ async function onSearch(e) {
   await fetchQuery(movieApiService);
 
   pagination.reset(movieApiService.totalResults);
+
+  if (refs.cardsContainer.scrollHeight < window.innerHeight - 320) {
+    refs.footer.classList.add('fixed-footer');
+  } else {
+    refs.footer.classList.remove('fixed-footer');
+  }
 }
 
 export async function fetchQuery(movieApiService) {
@@ -76,6 +82,7 @@ export async function fetchQuery(movieApiService) {
 
     if (!movieApiService.totalResults) {
       refs.notification.classList.add('is-visible');
+      refs.paginationContainer.classList.add('visually-hidden');
       hideLoading();
       return;
     }
@@ -100,7 +107,11 @@ export async function fetchQuery(movieApiService) {
         fetchedMovies.total_pages >= movieApiService.page
       ) {
         movieApiService.page += 1;
-
+        if (movieApiService.page > 150) {
+          hideLoading();
+          sentinel.classList.remove('visually-hidden');
+          return;
+        }
         const films = await movieApiService.fetchFilms();
 
         fetchedMovies1Current = [...films.results];

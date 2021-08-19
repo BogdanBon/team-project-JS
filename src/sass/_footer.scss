@@ -39,3 +39,11 @@
     justify-content: center;
   }
 }
+
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 475px;
+}
