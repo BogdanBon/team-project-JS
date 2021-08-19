@@ -112,4 +112,4 @@ const e=document.querySelector("#modal"),t=document.querySelector("#modal-overla
 },{}],"Focm":[function(require,module,exports) {
 "use strict";require("./js/fetch-by-query"),require("./js/loading-popular-films-on-start-page"),require("./js/fetch-by-one-card"),require("./js/header"),require("./js/add-to-local-storage"),require("./js/variables"),require("./js/my-library"),require("./js/pagination"),require("./sass/main.scss"),require("./js/theme-togle"),require("./js/trailer"),require("./js/modal-students"),require("./js/top-arrow"),require("./js/filter-by-genres");
 },{"./js/fetch-by-query":"CUmF","./js/loading-popular-films-on-start-page":"p3e7","./js/fetch-by-one-card":"DPQw","./js/header":"cGsR","./js/add-to-local-storage":"z1rf","./js/variables":"u9EY","./js/my-library":"L1LD","./js/pagination":"o8lo","./sass/main.scss":"clu1","./js/theme-togle":"DZpK","./js/trailer":"J7DG","./js/modal-students":"YNGu","./js/top-arrow":"oGsm","./js/filter-by-genres":"OaWX"}]},{},["Focm"], null)
-//# sourceMappingURL=/team-project-JS/src.02acb96a.js.map
+//# sourceMappingURL=/team-project-JS/src.8d7b2a1e.js.map
