@@ -15,7 +15,7 @@ export async function fetchFilmsOnStartPage() {
     showLoading();
     const fetchFilms = await movieApiService.fetchFilms();
     hideLoading();
-    await paintMarUp(fetchFilms);
+    paintMarUp(fetchFilms);
     pagination.reset(fetchFilms.total_results);
     addListenersToCards('.card__item');
   } catch {
@@ -77,17 +77,39 @@ function genresIdToGenresName(arrayFilms) {
   return arrayFilms;
 }
 
-function findAndSortGenres(arrayIds) {
-  const idsNames = [];
+// function findAndSortGenres(arrayIds) {
+//   const idsNames = [];
 
-  arrayIds.forEach(id => {
+//   arrayIds.forEach(id => {
+//     for (const genre of genres) {
+//       if (genre.id === id) {
+//         idsNames.push(genre.name);
+//         break;
+//       }
+//     }
+//   });
+
+//   if (idsNames.length === 0) {
+//     idsNames.push('Others');
+//   }
+
+//   if (idsNames.length >= 3) {
+//     idsNames.splice(2, 5, 'Others');
+//   }
+
+//   return idsNames.join(', ');
+// }
+
+function findAndSortGenres(arrayIds) {
+  const idsNames = arrayIds.reduce((allIds, id) => {
     for (const genre of genres) {
       if (genre.id === id) {
-        idsNames.push(genre.name);
+        allIds.push(genre.name);
         break;
       }
     }
-  });
+    return allIds;
+  }, []);
 
   if (idsNames.length === 0) {
     idsNames.push('Others');
